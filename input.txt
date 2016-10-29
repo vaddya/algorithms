@@ -1,5 +1,4 @@
-push 123
-size
-push -5
-pop
-exit
+3
+2 3
+17 -18 5
+6
