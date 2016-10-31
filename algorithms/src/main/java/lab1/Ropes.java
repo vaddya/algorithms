@@ -35,21 +35,19 @@ public class Ropes {
         }
         long best = ropesSum / housesNum;
         long left = 0;
-        long right = best;
-        long current = right / 2;
+        long right = best + 1;
         long good = 0;
-        while (current > 0 && left < right - 1) {
+        while (left < right - 1) {
+            long current = (left + right) / 2;
             int count = 0;
             for (long rope : ropes) {
                 count += rope / current;
             }
             if (count < housesNum) {
                 right = current;
-                current = (left + right) / 2;
             } else {
                 good = good > current ? good : current;
                 left = current;
-                current = (left + right) / 2;
             }
         }
         return good;
