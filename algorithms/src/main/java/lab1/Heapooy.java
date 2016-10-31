@@ -35,65 +35,60 @@ public class Heapooy {
     public static class Heap {
 
         private static final int INITIAL_SIZE = 10;
-        private int[] array;
+        private int[] array = new int[INITIAL_SIZE];
         private int tail = 1;
 
-        public Heap() {
-            array = new int[INITIAL_SIZE];
-        }
-
-        void push(int value) {
+        public void push(int value) {
             ensureCapacity();
             array[tail] = value;
             siftUp(tail);
             tail++;
         }
 
-        int pop() {
+        public int pop() {
             int value = array[1];
             array[1] = array[--tail];
             siftDown(1);
             return value;
         }
 
-        void siftUp(int i) {
+        public void siftUp(int i) {
             while (i > 1 && array[i] > array[i / 2]) {
-                swap(i, i / 2);
+                swap(array, i, i / 2);
                 i /= 2;
             }
         }
 
-        void siftDown(int i) {
-            int n = array.length;
+        public void siftDown(int i) {
             while (i * 2 <= tail) {
-                if (i * 2 + 1 > tail) {
+                if (i * 2 + 1 > tail) { // right does not exist
                     if (array[i] >= array[i * 2 + 1]) {
-                        swap(i, i * 2);
+                        swap(array, i, i * 2);
                         i *= 2;
                     }
-                    return;
+                    break;
                 }
-                if (array[i] < array[i * 2]) {
-                    if (array[i] >= array[i * 2 + 1]) {
-                        swap(i, i * 2);
+                if (array[i] < array[i * 2]) { // curr < left
+                    if (array[i] >= array[i * 2 + 1]) { // curr >= right
+                        swap(array, i, i * 2);
                         i *= 2;
-                    } else {
+                    } else { // curr < right
                         int max = array[i * 2] > array[i * 2 + 1]
                                 ? i * 2
                                 : i * 2 + 1;
-                        swap(i, max);
+                        swap(array, i, max);
                         i = max;
                     }
-                } else if (array[i] < array[i * 2 + 1]) {
-                    swap(i, i * 2 + 1);
+                } else if (array[i] < array[i * 2 + 1]) { // curr > left, curr < right
+                    swap(array, i, i * 2 + 1);
                     i = i * 2 + 1;
-                } else {
-                    return;
+                } else { // curr > left, curr > right
+                    break;
                 }
             }
         }
 
-        private void swap(int i, int j) {
+        private static void swap(int[] array, int i, int j) {
             int temp = array[i];
             array[i] = array[j];
             array[j] = temp;

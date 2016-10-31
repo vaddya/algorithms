@@ -16,20 +16,22 @@ public class Postfix {
         Stack<Integer> stack = new Stack<>();
         try (Scanner in = new Scanner(new File("input.txt"))) {
             PrintWriter writer = new PrintWriter("output.txt");
-
             String[] postfix = in.nextLine().split("\\s+");
             for (String s : postfix) {
-                if ("+".equals(s)) {
-                    stack.push(stack.pop() + stack.pop());
-                } else if ("-".equals(s)) {
-                    stack.push(-stack.pop() + stack.pop());
-                } else if ("*".equals(s)) {
-                    stack.push(stack.pop() * stack.pop());
-                } else {
-                    stack.push(Integer.parseInt(s));
+                switch (s) {
+                    case "+":
+                        stack.push(stack.pop() + stack.pop());
+                        break;
+                    case "-":
+                        stack.push(-stack.pop() + stack.pop());
+                        break;
+                    case "*":
+                        stack.push(stack.pop() * stack.pop());
+                        break;
+                    default:
+                        stack.push(Integer.parseInt(s));
                 }
             }
-
             writer.print(stack.pop());
             writer.flush();
             writer.close();

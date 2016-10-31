@@ -48,13 +48,9 @@ public class QueueTask {
     public static class Queue {
 
         private static final int INITIAL_SIZE = 101;
-        private int[] queue;
+        private int[] queue = new int[INITIAL_SIZE];
         private int head = 0;
         private int tail = 0;
-
-        public Queue() {
-            queue = new int[INITIAL_SIZE];
-        }
 
         public void push(int item) {
             queue[tail] = item;
