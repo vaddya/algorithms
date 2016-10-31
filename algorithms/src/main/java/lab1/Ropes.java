@@ -46,8 +46,7 @@ public class Ropes {
             if (count < housesNum) {
                 right = current;
             } else {
-                good = good > current ? good : current;
-                left = current;
+                good = left = current;
             }
         }
         return good;
