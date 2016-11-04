@@ -1,6 +1,6 @@
 package lab1;
 
-import algorithms.QuickSort;
+import algorithms.sorting.QuickSort;
 
 import java.io.File;
 import java.io.FileNotFoundException;
