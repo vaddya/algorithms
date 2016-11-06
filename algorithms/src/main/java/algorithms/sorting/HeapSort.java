@@ -1,5 +1,7 @@
 package algorithms.sorting;
 
+import static algorithms.sorting.Util.swap;
+
 /**
  * Max oriented heap sort algorithm
  *
@@ -58,11 +60,5 @@ public class HeapSort {
 
     private static int rightOf(int i) {
         return i * 2 + 2;
-    }
-
-    private static void swap(int[] array, int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
     }
 }

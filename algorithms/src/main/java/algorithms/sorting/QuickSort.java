@@ -1,5 +1,7 @@
 package algorithms.sorting;
 
+import static algorithms.sorting.Util.swap;
+
 /**
  * Quick sort algorithm
  *
@@ -31,11 +33,5 @@ public class QuickSort {
         }
         swap(a, l, j);
         return j;
-    }
-
-    private static void swap(int[] a, int i, int j) {
-        int tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
     }
 }
