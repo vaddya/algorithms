@@ -1,0 +1,55 @@
+body {
+    background-color: #fbfcfc;
+}
+
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+a {
+    text-decoration: underline;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+td, th {
+    padding: 15px !important;
+    padding-left: 35px !important;
+}
+
+table a {
+    color: black;
+}
+
+table a:hover {
+    color: #2f2f2f;
+    text-decoration: none;
+}
+
+.logo {
+    padding-top: 10px;
+}
+
+.panel1 {
+    margin-top: -25px;
+    margin-bottom: 10px;
+}
+
+.panel2 {
+    margin-bottom: 10px;
+}
+
+.name {
+    margin-top: 10px;
+}
+
+.bottom-padding {
+    padding-bottom: 35px;
+}
+
+tr.noBorder td {
+    border: 0;
+}
