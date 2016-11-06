@@ -1,5 +1,7 @@
 package algorithms.sorting;
 
+import java.util.Random;
+
 import static algorithms.sorting.Util.swap;
 
 /**
@@ -9,6 +11,8 @@ import static algorithms.sorting.Util.swap;
  */
 public class QuickSort {
 
+    private static Random random = new Random(System.currentTimeMillis());
+
     public static void sort(int[] a) {
         sort(a, 0, a.length - 1);
     }
@@ -17,6 +21,7 @@ public class QuickSort {
         if (left >= right) {
             return;
         }
+        swap(array, left, left + random.nextInt(right - left)); // shuffle
         int pivot = partition(array, left, right);
         sort(array, left, pivot - 1);
         sort(array, pivot + 1, right);

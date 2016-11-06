@@ -3,7 +3,7 @@ package algorithms.sorting;
 import java.util.Arrays;
 
 /**
- * Sorting algorithms demo
+ * Sorting algorithms demonstration
  *
  * @author vaddya
  */
