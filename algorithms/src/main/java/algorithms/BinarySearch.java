@@ -11,7 +11,7 @@ public class BinarySearch {
         int left = -1;
         int right = array.length;
         while (left < right - 1) {
-            int mid = (left + right) / 2;
+            int mid = left + (right - left) / 2;
             if (array[mid] < key) {
                 left = mid;
             } else {
@@ -28,7 +28,7 @@ public class BinarySearch {
         int left = -1;
         int right = array.length;
         while (left < right - 1) {
-            int mid = (left + right) / 2;
+            int mid = left + (right - left) / 2;
             if (array[mid] <= key) {
                 left = mid;
             } else {

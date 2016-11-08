@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
 
-/** todo
+/**
  * https://www.e-olymp.com/ru/problems/4036
  *
  * @author vaddya
@@ -35,29 +35,28 @@ public class FastQuickSort {
     private static Random random = new Random(System.currentTimeMillis());
 
     public static void sort(int[] a) {
+        shuffle(a);
         sort(a, 0, a.length - 1);
     }
-    
+
     private static void sort(int[] array, int left, int right) {
         if (left >= right) {
             return;
         }
-        swap(array, left, left + random.nextInt(right - left));
         int pivot = partition(array, left, right);
-        sort(array, left, pivot - 1);
+        sort(array, left, pivot);
         sort(array, pivot + 1, right);
     }
 
     private static int partition(int[] a, int l, int r) {
-        int x = a[l];
-        int j = l;
-        for (int i = l + 1; i <= r; i++) {
-            if (a[i] <= x) {
-                j++;
-                swap(a, j, i);
-            }
+        int x = a[l + (r - l + 1) / 2];
+        int i = l;
+        int j = r;
+        while (i <= j) {
+            while (a[i] < x) i++;
+            while (a[j] > x) j--;
+            if (i <= j) swap(a, i++, j--);
         }
-        swap(a, l, j);
         return j;
     }
 
@@ -65,5 +64,11 @@ public class FastQuickSort {
         int tmp = a[i];
         a[i] = a[j];
         a[j] = tmp;
+    }
+
+    private static void shuffle(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            swap(array, i, i + random.nextInt(array.length - i));
+        }
     }
 }

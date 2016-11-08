@@ -35,6 +35,8 @@ public class QueueTask {
                         queue.clear();
                         writer.println("ok");
                         break;
+                    default:
+                        break;
                 }
             }
             writer.println("bye");

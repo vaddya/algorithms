@@ -23,19 +23,22 @@ public class MergeSortBench {
 
     private int[] array;
 
+    @Param({"0"})
+    private int index;
+
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = Utils.src.clone();
+        array = Utils.ARRAYS[index].clone();
     }
 
     @Benchmark
-    public void measureHeap(Blackhole bh) {
+    public void measure(Blackhole bh) {
         bh.consume(MergeSort.sort(array));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(QuickSortBench.class.getSimpleName())
+                .include(MergeSortBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)
@@ -43,5 +46,4 @@ public class MergeSortBench {
 
         new Runner(opt).run();
     }
-
 }

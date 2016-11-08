@@ -1,6 +1,5 @@
 package benchmarks;
 
-import algorithms.sorting.QuickSort;
 import algorithms.sorting.SelectionSort;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
@@ -24,19 +23,22 @@ public class SelectionSortBench {
 
     private int[] array;
 
+    @Param({"0"})
+    private int index;
+
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = Utils.src.clone();
+        array = Utils.ARRAYS[index].clone();
     }
 
     @Benchmark
-    public void measureHeap(Blackhole bh) {
+    public void measure(Blackhole bh) {
         bh.consume(SelectionSort.sort(array));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(QuickSortBench.class.getSimpleName())
+                .include(SelectionSortBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)

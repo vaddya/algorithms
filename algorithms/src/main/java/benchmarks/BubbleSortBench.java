@@ -11,7 +11,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Bubble Sort Benchmark
+ * benchmarks at technopolis
  *
  * @author vaddya
  * @since November 06, 2016
@@ -23,13 +23,16 @@ public class BubbleSortBench {
 
     private int[] array;
 
+    @Param({"0"})
+    private int index;
+
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = Utils.src.clone();
+        array = Utils.ARRAYS[index].clone();
     }
 
     @Benchmark
-    public void measureBubble(Blackhole bh) {
+    public void measure(Blackhole bh) {
         bh.consume(BubbleSort.sort(array));
     }
 

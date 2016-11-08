@@ -1,6 +1,5 @@
 package benchmarks;
 
-import algorithms.sorting.HeapSort;
 import algorithms.sorting.QuickSort;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
@@ -24,13 +23,16 @@ public class QuickSortBench {
 
     private int[] array;
 
+    @Param({"0"})
+    private int index;
+
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = Utils.src.clone();
+        array = Utils.ARRAYS[index].clone();
     }
 
     @Benchmark
-    public void measureHeap(Blackhole bh) {
+    public void measure(Blackhole bh) {
         bh.consume(QuickSort.sort(array));
     }
 

@@ -23,13 +23,16 @@ public class HeapSortBench {
 
     private int[] array;
 
+    @Param({"0"})
+    private int index;
+
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = Utils.src.clone();
+        array = Utils.ARRAYS[index].clone();
     }
 
     @Benchmark
-    public void measureHeap(Blackhole bh) {
+    public void measure(Blackhole bh) {
         bh.consume(HeapSort.sort(array));
     }
 

@@ -10,6 +10,7 @@ import static algorithms.sorting.Utils.swap;
 public class SelectionSort {
 
     public static int[] sort(int[] array) {
+        if (array == null) return null;
         for (int i = 0; i < array.length - 1; i++) {
             int min = i;
             for (int j = i + 1; j < array.length; j++) {

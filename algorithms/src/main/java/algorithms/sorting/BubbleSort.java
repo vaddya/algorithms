@@ -10,6 +10,7 @@ import static algorithms.sorting.Utils.swap;
 public class BubbleSort {
 
     public static int[] sort(int[] array) {
+        if (array == null) return null;
         int i = 0;
         boolean swapped = true;
         while (swapped) {

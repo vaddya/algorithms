@@ -12,11 +12,12 @@ public class HeapSort {
     private static int size;
 
     public static int[] sort(int[] array) {
+        if (array == null) return null;
         size = array.length - 1;
         for (int i = array.length / 2; i >= 0; i--) {
             siftDown(array, i);
         }
-        for (int i = 0; i < array.length; i++) {
+        for (int i : array) {
             swap(array, size--, 0);
             siftDown(array, 0);
         }

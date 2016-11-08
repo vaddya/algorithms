@@ -22,4 +22,9 @@ class Utils {
             swap(array, i, i + random.nextInt(array.length - i));
         }
     }
+
+    public static int[] generate(int size) {
+        return null;
+    }
+
 }

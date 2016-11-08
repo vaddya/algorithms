@@ -1,6 +1,6 @@
 package benchmarks;
 
-import algorithms.sorting.InsertionSort;
+import algorithms.sorting.CountingSort;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
@@ -14,12 +14,12 @@ import java.util.concurrent.TimeUnit;
  * benchmarks at technopolis
  *
  * @author vaddya
- * @since November 08, 2016
+ * @since November 09, 2016
  */
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class InsertionSortBench {
+public class CountingSortBench {
 
     private int[] array;
 
@@ -33,12 +33,12 @@ public class InsertionSortBench {
 
     @Benchmark
     public void measure(Blackhole bh) {
-        bh.consume(InsertionSort.sort(array));
+        bh.consume(CountingSort.sort(array));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(InsertionSortBench.class.getSimpleName())
+                .include(CountingSortBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)

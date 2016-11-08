@@ -9,7 +9,8 @@ import java.util.Arrays;
  */
 public class SortingDemo {
 
-    private static final int[] array = new int[]{100, 1, 5, 2, 6, 10, 0, 34, 3, 74, 0, 65, 1, 4, 33};
+    private static final int[] array = new int[]{100, 1, 5, 2, 6, -10, 0, 34, 3,
+            74, 0, 432, 1, 4, 33, 1004, -1, -145, 65};
 
     public static void main(String[] args) {
         out("Source");
@@ -32,7 +33,7 @@ public class SortingDemo {
 
         out("Shell Sort");
         int[] shell = array.clone();
-        HeapSort.sort(shell);
+        ShellSort.sort(shell);
         out(shell);
 
         out("Heap Sort");
@@ -49,6 +50,11 @@ public class SortingDemo {
         int[] quick = array.clone();
         QuickSort.sort(quick);
         out(quick);
+
+        out("Counting Sort");
+        int[] counting = array.clone();
+        CountingSort.sort(counting);
+        out(counting);
     }
 
     private static void out(String s) {
