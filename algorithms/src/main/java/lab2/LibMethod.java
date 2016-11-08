@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-/**
+/** todo
  * https://www.e-olymp.com/ru/problems/2664
  *
  * @author vaddya

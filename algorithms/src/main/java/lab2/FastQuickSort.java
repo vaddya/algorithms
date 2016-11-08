@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
+/** todo
  * https://www.e-olymp.com/ru/problems/4036
  *
  * @author vaddya

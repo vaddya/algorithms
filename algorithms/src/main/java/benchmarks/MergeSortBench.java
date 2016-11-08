@@ -1,8 +1,6 @@
 package benchmarks;
 
-import algorithms.sorting.BubbleSort;
-import algorithms.sorting.HeapSort;
-import algorithms.sorting.SelectionSort;
+import algorithms.sorting.MergeSort;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
@@ -16,48 +14,34 @@ import java.util.concurrent.TimeUnit;
  * benchmarks at technopolis
  *
  * @author vaddya
- * @since November 06, 2016
+ * @since November 08, 2016
  */
+@State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@State(Scope.Thread)
-public class Trying {
+public class MergeSortBench {
 
     private int[] array;
 
-
-    @Setup
-    public void setup() {
-        array = Util.src.clone();
+    @Setup(value = Level.Invocation)
+    public void setUpInvocation() {
+        array = Utils.src.clone();
     }
 
     @Benchmark
-    public int measureBubble(Blackhole bh) {
-        BubbleSort.sort(array);
-        return array[0];
+    public void measureHeap(Blackhole bh) {
+        bh.consume(MergeSort.sort(array));
     }
-
-    @Benchmark
-    public int measureHeap(Blackhole bh) {
-        HeapSort.sort(array);
-        return array[0];
-    }
-
-    @Benchmark
-    public int measureSelection(Blackhole bh) {
-        SelectionSort.sort(array);
-        return array[0];
-    }
-
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(Trying.class.getSimpleName())
+                .include(QuickSortBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
-                .forks(2)
+                .forks(1)
                 .build();
 
         new Runner(opt).run();
     }
+
 }

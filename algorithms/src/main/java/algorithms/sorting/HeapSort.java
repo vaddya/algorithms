@@ -1,6 +1,6 @@
 package algorithms.sorting;
 
-import static algorithms.sorting.Util.swap;
+import static algorithms.sorting.Utils.swap;
 
 /**
  * Max oriented heap sort algorithm
@@ -11,7 +11,7 @@ public class HeapSort {
 
     private static int size;
 
-    public static void sort(int[] array) {
+    public static int[] sort(int[] array) {
         size = array.length - 1;
         for (int i = array.length / 2; i >= 0; i--) {
             siftDown(array, i);
@@ -20,6 +20,7 @@ public class HeapSort {
             swap(array, size--, 0);
             siftDown(array, 0);
         }
+        return array;
     }
 
     private static void siftDown(int[] array, int i) {

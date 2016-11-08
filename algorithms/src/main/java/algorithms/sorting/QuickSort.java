@@ -1,8 +1,6 @@
 package algorithms.sorting;
 
-import java.util.Random;
-
-import static algorithms.sorting.Util.swap;
+import static algorithms.sorting.Utils.swap;
 
 /**
  * Quick sort algorithm
@@ -11,17 +9,14 @@ import static algorithms.sorting.Util.swap;
  */
 public class QuickSort {
 
-    private static Random random = new Random(System.currentTimeMillis());
-
-    public static void sort(int[] a) {
-        sort(a, 0, a.length - 1);
+    public static int[] sort(int[] array) {
+        //shuffle(array);
+        sort(array, 0, array.length - 1);
+        return array;
     }
 
     private static void sort(int[] array, int left, int right) {
-        if (left >= right) {
-            return;
-        }
-        swap(array, left, left + random.nextInt(right - left)); // shuffle
+        if (left >= right) return;
         int pivot = partition(array, left, right);
         sort(array, left, pivot - 1);
         sort(array, pivot + 1, right);

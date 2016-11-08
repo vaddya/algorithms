@@ -1,6 +1,6 @@
 package algorithms.sorting;
 
-import static algorithms.sorting.Util.swap;
+import static algorithms.sorting.Utils.swap;
 
 /**
  * Selection sort algorithm
@@ -9,7 +9,7 @@ import static algorithms.sorting.Util.swap;
  */
 public class SelectionSort {
 
-    public static void sort(int[] array) {
+    public static int[] sort(int[] array) {
         for (int i = 0; i < array.length - 1; i++) {
             int min = i;
             for (int j = i + 1; j < array.length; j++) {
@@ -19,5 +19,6 @@ public class SelectionSort {
             }
             swap(array, i, min);
         }
+        return array;
     }
 }

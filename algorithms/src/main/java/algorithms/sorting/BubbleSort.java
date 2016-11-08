@@ -1,6 +1,6 @@
 package algorithms.sorting;
 
-import static algorithms.sorting.Util.swap;
+import static algorithms.sorting.Utils.swap;
 
 /**
  * Bubble sort algorithm
@@ -9,7 +9,7 @@ import static algorithms.sorting.Util.swap;
  */
 public class BubbleSort {
 
-    public static void sort(int[] array) {
+    public static int[] sort(int[] array) {
         int i = 0;
         boolean swapped = true;
         while (swapped) {
@@ -22,5 +22,6 @@ public class BubbleSort {
             }
             i++;
         }
+        return array;
     }
 }

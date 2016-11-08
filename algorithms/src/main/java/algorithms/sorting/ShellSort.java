@@ -5,7 +5,7 @@ package algorithms.sorting;
  */
 public class ShellSort {
 
-    public static void sort(int[] array) {
-
+    public static int[] sort(int[] array) {
+        return array;
     }
 }
