@@ -3,6 +3,9 @@ package seminar1.collections;
 import java.util.Arrays;
 import java.util.Iterator;
 
+/**
+ * №2
+ */
 public class ArrayStack<T> implements IStack<T> {
 
     public static void main(String[] args) {
@@ -39,19 +42,14 @@ public class ArrayStack<T> implements IStack<T> {
             grow();
         }
         elementData[size++] = item;
-        /* TODO: implement it */
     }
 
     @Override
     public T pop() {
-        /* TODO: implement it */
         if (elementData.length / 4 >= size) {
             shrink();
         }
-        if (size != 0) {
-            return elementData[--size];
-        }
-        return null;
+        return size != 0 ? elementData[--size] : null;
     }
 
     @Override
@@ -66,21 +64,11 @@ public class ArrayStack<T> implements IStack<T> {
 
     @SuppressWarnings("unchecked")
     private void grow() {
-        /**
-         * TODO: implement it
-         * Если массив заполнился,
-         * то увеличить его размер в полтора раз
-         */
         changeCapacity((int) (elementData.length * 1.5));
     }
 
     @SuppressWarnings("unchecked")
     private void shrink() {
-        /**
-         * TODO: implement it
-         * Если количество элементов в четыре раза меньше,
-         * то уменьшить его размер в два раза
-         */
         changeCapacity(elementData.length >> 1);
     }
 

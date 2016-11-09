@@ -2,6 +2,9 @@ package seminar1.collections;
 
 import java.util.Iterator;
 
+/**
+ * №5.2 todo
+ */
 public class TwoStackQueue<Item> implements IQueue<Item> {
 
     private IStack<Item> stack1;

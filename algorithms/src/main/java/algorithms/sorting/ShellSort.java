@@ -1,7 +1,7 @@
 package algorithms.sorting;
 
 /**
- * Selection sort algorithm
+ * Shell sort algorithm
  *
  * @author vaddya
  * @since November 08, 2016

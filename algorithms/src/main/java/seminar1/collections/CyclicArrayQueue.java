@@ -2,6 +2,9 @@ package seminar1.collections;
 
 import java.util.Iterator;
 
+/**
+ * №6 todo
+ */
 public class CyclicArrayQueue<Item> implements IQueue<Item> {
 
     private Item[] elementData;

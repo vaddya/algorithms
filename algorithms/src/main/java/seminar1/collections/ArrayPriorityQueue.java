@@ -1,29 +1,40 @@
 package seminar1.collections;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class ArrayPriorityQueue<Key extends Comparable<Key>> implements IPriorityQueue<Key> {
+/**
+ * №10 todo
+ */
+public class ArrayPriorityQueue<T extends Comparable<T>> implements IPriorityQueue<T> {
 
-    private Key[] elementData;
-    private Comparator<Key> comparator;
+    private static final int DEFAULT_CAPACITY = 10;
 
+    private T[] elementData;
+    private int size;
+    private Comparator<T> comparator;
+
+    @SuppressWarnings("unchecked")
     public ArrayPriorityQueue() {
         /* TODO: implement it — O(n) */
+        elementData = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
-    public ArrayPriorityQueue(Comparator<Key> comparator) {
+    public ArrayPriorityQueue(Comparator<T> comparator) {
+        this();
         /* TODO: implement it — O(n) */
         this.comparator = comparator;
     }
 
     @Override
-    public void add(Key key) {
+    public void add(T key) {
         /* TODO: implement it — O(log n) */
+
     }
 
     @Override
-    public Key peek() {
+    public T peek() {
         /**
          * TODO: implement it — O(1)
          * Посмотреть на минимальный элемент
@@ -32,25 +43,30 @@ public class ArrayPriorityQueue<Key extends Comparable<Key>> implements IPriorit
     }
 
     @Override
-    public Key extractMin() {
+    public T extractMin() {
         /**
          * TODO: implement it — O(log n)
          * Достать минимальный элемент
          *  и перестроить кучу
          */
-        return null;
+        if (size == 0) return null;
+        T element = elementData[0];
+        elementData[0] = elementData[size--];
+        siftDown();
+        if (elementData.length / 4 >= size) {
+            shrink();
+        }
+        return elementData[0];
     }
 
     @Override
     public boolean isEmpty() {
-        /* TODO: implement it */
-        return false;
+        return size == 0;
     }
 
     @Override
     public int size() {
-        /* TODO: implement it */
-        return 0;
+        return size;
     }
 
     private void siftUp() {
@@ -70,19 +86,16 @@ public class ArrayPriorityQueue<Key extends Comparable<Key>> implements IPriorit
     }
 
     private void grow() {
-        /**
-         * TODO: implement it
-         * Если массив заполнился,
-         * то увеличить его размер в полтора раз
-         */
+        changeCapacity((int) (elementData.length * 1.5));
     }
 
     private void shrink() {
-        /**
-         * TODO: implement it
-         * Если количество элементов в четыре раза меньше,
-         * то уменьшить его размер в два раза
-         */
+        changeCapacity(elementData.length >> 1);
+    }
+
+    private void changeCapacity(int newCapacity) {
+        elementData = Arrays.copyOf(elementData, newCapacity);
+        System.out.println("Change capacity: " + newCapacity);
     }
 
     private boolean greater(int i, int j) {
@@ -93,7 +106,7 @@ public class ArrayPriorityQueue<Key extends Comparable<Key>> implements IPriorit
     }
 
     @Override
-    public Iterator<Key> iterator() {
+    public Iterator<T> iterator() {
         /* TODO: implement it */
         return null;
     }

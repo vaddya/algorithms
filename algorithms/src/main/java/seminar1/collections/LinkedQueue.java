@@ -2,6 +2,9 @@ package seminar1.collections;
 
 import java.util.Iterator;
 
+/**
+ * №4.2 todo
+ */
 public class LinkedQueue<Item> implements IQueue<Item> {
 
     // -> [tail -> .. -> .. -> head] ->

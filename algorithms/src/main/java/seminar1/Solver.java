@@ -3,11 +3,10 @@ package seminar1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 /**
+ * №5.1
  * ( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) ) = 101
  * ( 1 + ( 5 * ( 4 * 5 ) ) ) ( 1 + ( 5 * 20 ) ) = 101
  * ( 1 + 100 ) = 101
@@ -25,26 +24,41 @@ public class Solver {
     private static final String TIMES = "*";
     private static final String DIVISION = "/";
 
-    private static Map<String, Integer> priority = new HashMap<>();
-    static {
-        priority.put(PLUS, 1);
-        priority.put(MINUS, 1);
-        priority.put(TIMES, 2);
-        priority.put(DIVISION, 2);
-    }
-
     private static double evaluate(String[] values) {
         Stack<String> ops = new Stack<>();
-        Stack<String> nums = new Stack<>();
+        Stack<Double> nums = new Stack<>();
         for (String s : values) {
             switch (s) {
+                case PLUS:
+                case MINUS:
+                case TIMES:
+                case DIVISION:
+                    ops.push(s);
+                    break;
+                case RIGHT_PAREN:
+                    nums.push(calculate(nums.pop(), nums.pop(), ops.pop()));
+                    break;
                 case LEFT_PAREN:
-
+                default:
+                    nums.push(Double.parseDouble(s));
             }
         }
-        /* TODO: implement it */
-        // Double.valueOf(values[i])
-        return 0D;
+        return nums.pop();
+    }
+
+    private static double calculate(double x, double y, String op) {
+        switch (op) {
+            case PLUS:
+                return y + x;
+            case MINUS:
+                return y - x;
+            case TIMES:
+                return y * x;
+            case DIVISION:
+                return y / x;
+            default:
+                return 0;
+        }
     }
 
     public static void main(String[] args) {

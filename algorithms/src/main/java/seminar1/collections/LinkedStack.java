@@ -2,6 +2,9 @@ package seminar1.collections;
 
 import java.util.Iterator;
 
+/**
+ * №3
+ */
 public class LinkedStack<T> implements IStack<T> {
 
     public static void main(String[] args) {
@@ -9,11 +12,8 @@ public class LinkedStack<T> implements IStack<T> {
         for (int i = 0; i < 10; i++) {
             stack.push(i);
         }
-//        while (!stack.isEmpty()) {
-//            System.out.println(stack.pop());
-//        }
-        for (int i : stack) {
-            System.out.println(i);
+        while (!stack.isEmpty()) {
+            System.out.println(stack.pop());
         }
     }
 
@@ -25,7 +25,6 @@ public class LinkedStack<T> implements IStack<T> {
         Node<T> curr = new Node<T>(item, head);
         head = curr;
         size++;
-        /* TODO: implement it */
     }
 
     @Override

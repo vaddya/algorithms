@@ -3,11 +3,10 @@ package seminar1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Stack;
 
 /**
+ * №1
  * 1. пустая строка — правильная скобочная последовательность;
  * 2. правильная скобочная последовательность,
  * взятая в скобки одного типа — правильная скобочная последовательность;
@@ -30,9 +29,6 @@ public class ParenthesesSequence {
             if (c == LEFT_PAREN) {
                 stack.push(c);
             } else if (c == RIGHT_PAREN) {
-//                if (stack.isEmpty()) {
-//                    return false;
-//                }
                 if (stack.isEmpty() || stack.pop() != '(') {
                     return false;
                 }

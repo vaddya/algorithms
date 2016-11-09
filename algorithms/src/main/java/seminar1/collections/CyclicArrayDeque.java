@@ -2,6 +2,9 @@ package seminar1.collections;
 
 import java.util.Iterator;
 
+/**
+ * №9 todo
+ */
 public class CyclicArrayDeque<Item> implements IDeque<Item> {
 
     private Item[] elementData;

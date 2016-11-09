@@ -2,6 +2,9 @@ package seminar1.collections;
 
 import java.util.Iterator;
 
+/**
+ * №8 todo
+ */
 public class LinkedDeque<Item> implements IDeque<Item> {
 
     @Override
