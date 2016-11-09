@@ -1,11 +1,29 @@
 package seminar1.collections;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * №4.2 todo
  */
 public class LinkedQueue<Item> implements IQueue<Item> {
+
+    public static void main(String[] args) {
+        LinkedQueue<Integer> queue = new LinkedQueue<>();
+        for (int i = 0; i < 5; i++) {
+            queue.enqueue(i);
+        }
+        while (!queue.isEmpty()) {
+            System.out.println(queue.dequeue());
+        }
+        for (int i = 0; i < 5; i++) {
+            queue.enqueue(i);
+        }
+        Iterator<Integer> iterator = queue.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
 
     // -> [tail -> .. -> .. -> head] ->
     private Node<Item> head;
@@ -14,13 +32,26 @@ public class LinkedQueue<Item> implements IQueue<Item> {
 
     @Override
     public void enqueue(Item item) {
-        /* TODO: implement it */
+        if (size++ == 0) {
+            head = tail = new Node<Item>(item);
+        } else {
+            tail = new Node<>(item, tail);
+        }
     }
 
     @Override
     public Item dequeue() {
-        /* TODO: implement it */
-        return null;
+        if (size == 0) return null;
+        if (size-- == 1) {
+            return head.item;
+        }
+        Node<Item> curr = tail;
+        while (curr.next != head) {
+            curr = curr.next;
+        }
+        Item value = head.item;
+        head = curr;
+        return value;
     }
 
     @Override
@@ -40,16 +71,18 @@ public class LinkedQueue<Item> implements IQueue<Item> {
 
     private class LinkedQueueIterator implements Iterator<Item> {
 
+        Node<Item> next = head;
+        Node<Item> lastReturned;
+        int nextIndex;
+
         @Override
         public boolean hasNext() {
-            /* TODO: implement it */
-            return false;
+            return nextIndex < size;
         }
 
         @Override
         public Item next() {
-            /* TODO: implement it */
-            return null;
+
         }
 
     }
