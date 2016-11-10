@@ -21,20 +21,6 @@ public class BattleArena {
         arena.summarize();
     }
 
-    public void intro() {
-        out("Today's fighters are:");
-        out(trainer1.getPokemon().toString());
-        out(trainer2.getPokemon().toString());
-        out("");
-    }
-
-    public void summarize() {
-        Pokemon winner = trainer1.getPokemon().isDead()
-                ? trainer2.getPokemon()
-                : trainer1.getPokemon();
-        out(winner.getName() + " won in " + step + " steps!");
-    }
-
     private Trainer trainer1;
     private Trainer trainer2;
     private int step = 0;
@@ -43,6 +29,14 @@ public class BattleArena {
         this.trainer1 = trainer1;
         this.trainer2 = trainer2;
     }
+
+    public void intro() {
+        out("Today's fighters are:");
+        out(trainer1.getPokemon().toString());
+        out(trainer2.getPokemon().toString());
+        out("");
+    }
+
 
     public void start() throws InterruptedException {
         out("Start!");
@@ -53,6 +47,13 @@ public class BattleArena {
             logCurrentHealth();
             Thread.sleep(1000);
         }
+    }
+
+    public void summarize() {
+        Pokemon winner = trainer1.getPokemon().isDead()
+                ? trainer2.getPokemon()
+                : trainer1.getPokemon();
+        out(winner.getName() + " won in " + step + " steps!");
     }
 
     private void makeStep(Trainer trainer) {
@@ -70,7 +71,7 @@ public class BattleArena {
     }
 
     private void logCurrentHealth() {
-        System.out.println(trainer1.getPokemon().getName() + ": " + trainer1.getPokemon().getHealth() + " hp, "
+        out(trainer1.getPokemon().getName() + ": " + trainer1.getPokemon().getHealth() + " hp, "
                 + trainer2.getPokemon().getName() + ": " + trainer2.getPokemon().getHealth() + " hp\n");
     }
 
@@ -78,7 +79,7 @@ public class BattleArena {
         System.out.println(s);
     }
 
-    public boolean isOver() {
+    private boolean isOver() {
         return trainer1.getPokemon().isDead() || trainer2.getPokemon().isDead();
     }
 }
