@@ -1,3 +1,4 @@
 rootProject.name = 'technopolis'
 include 'algorithms'
+include 'advjava'
 

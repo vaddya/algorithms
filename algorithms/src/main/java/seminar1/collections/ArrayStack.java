@@ -49,7 +49,7 @@ public class ArrayStack<E> implements IStack<E> {
         if (elementData.length / 4 >= size) {
             shrink();
         }
-        return size != 0 ? elementData[--size] : null;
+        return size > 0 ? elementData[--size] : null;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ArrayStack<E> implements IStack<E> {
 
     private void changeCapacity(int newCapacity) {
         elementData = Arrays.copyOf(elementData, newCapacity);
-        System.out.println("Capacity changed: " + newCapacity);
+//        System.out.println("Capacity changed: " + newCapacity);
     }
 
     @Override
