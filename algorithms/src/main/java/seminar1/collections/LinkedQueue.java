@@ -1,10 +1,9 @@
 package seminar1.collections;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
- * №4.2 todo
+ * №4.2
  */
 public class LinkedQueue<Item> implements IQueue<Item> {
 
@@ -33,7 +32,7 @@ public class LinkedQueue<Item> implements IQueue<Item> {
     @Override
     public void enqueue(Item item) {
         if (size++ == 0) {
-            head = tail = new Node<Item>(item);
+            head = tail = new Node<Item>(item, null);
         } else {
             tail = new Node<>(item, tail);
         }
@@ -45,13 +44,18 @@ public class LinkedQueue<Item> implements IQueue<Item> {
         if (size-- == 1) {
             return head.item;
         }
+        Item value = head.item;
+        head = findPrev(head);
+        return value;
+    }
+
+    private Node<Item> findPrev(Node<Item> node) {
+        if (node == tail) return null;
         Node<Item> curr = tail;
-        while (curr.next != head) {
+        while (curr.next != null && curr.next != node) {
             curr = curr.next;
         }
-        Item value = head.item;
-        head = curr;
-        return value;
+        return curr;
     }
 
     @Override
@@ -71,18 +75,18 @@ public class LinkedQueue<Item> implements IQueue<Item> {
 
     private class LinkedQueueIterator implements Iterator<Item> {
 
-        Node<Item> next = head;
-        Node<Item> lastReturned;
-        int nextIndex;
+        private Node<Item> curr = head;
 
         @Override
         public boolean hasNext() {
-            return nextIndex < size;
+            return curr != null;
         }
 
         @Override
         public Item next() {
-
+            Item value = curr.item;
+            curr = findPrev(curr);
+            return value;
         }
 
     }
@@ -90,10 +94,6 @@ public class LinkedQueue<Item> implements IQueue<Item> {
     private static class Node<Item> {
         Item item;
         Node<Item> next;
-
-        public Node(Item item) {
-            this.item = item;
-        }
 
         public Node(Item item, Node<Item> next) {
             this.item = item;

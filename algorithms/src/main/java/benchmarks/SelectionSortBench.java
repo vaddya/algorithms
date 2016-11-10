@@ -1,5 +1,6 @@
 package benchmarks;
 
+import algorithms.Utils;
 import algorithms.sorting.SelectionSort;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
@@ -9,6 +10,8 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
+
+import static algorithms.Utils.ARRAYS;
 
 /**
  * benchmarks at technopolis
@@ -28,7 +31,7 @@ public class SelectionSortBench {
 
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = Utils.ARRAYS[index].clone();
+        array = ARRAYS[index].clone();
     }
 
     @Benchmark

@@ -10,6 +10,8 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import static algorithms.Utils.ARRAYS;
+
 /**
  * benchmarks at technopolis
  *
@@ -28,7 +30,7 @@ public class MergeSortBench {
 
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = Utils.ARRAYS[index].clone();
+        array = ARRAYS[index].clone();
     }
 
     @Benchmark

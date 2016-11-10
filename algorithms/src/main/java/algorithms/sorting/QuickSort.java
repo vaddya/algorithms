@@ -1,7 +1,7 @@
 package algorithms.sorting;
 
-import static algorithms.sorting.Utils.shuffle;
-import static algorithms.sorting.Utils.swap;
+import static algorithms.Utils.shuffle;
+import static algorithms.Utils.swap;
 
 /**
  * Quick sort algorithm

@@ -2,6 +2,8 @@ package algorithms.sorting;
 
 import java.util.Arrays;
 
+import static algorithms.Utils.gen;
+
 /**
  * Sorting algorithms demonstration
  *
@@ -9,8 +11,7 @@ import java.util.Arrays;
  */
 public class SortingDemo {
 
-    private static final int[] array = new int[]{100, 1, 5, 2, 6, -10, 0, 34, 3,
-            74, 0, 432, 1, 4, 33, 1004, -1, -145, 65};
+    private static final int[] array = gen(20);
 
     public static void main(String[] args) {
         out("Source");

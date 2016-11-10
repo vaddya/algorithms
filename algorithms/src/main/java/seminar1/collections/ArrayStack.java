@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * №2
  */
-public class ArrayStack<T> implements IStack<T> {
+public class ArrayStack<E> implements IStack<E> {
 
     public static void main(String[] args) {
         IStack<Integer> arrayStack = new ArrayStack<>();
@@ -28,16 +28,16 @@ public class ArrayStack<T> implements IStack<T> {
 
     private static final int DEFAULT_CAPACITY = 10;
 
-    private T[] elementData;
-    private int size;
+    private E[] elementData;
+    private int size = 0;
 
     @SuppressWarnings("unchecked")
     public ArrayStack() {
-        this.elementData = (T[]) new Object[DEFAULT_CAPACITY];
+        this.elementData = (E[]) new Object[DEFAULT_CAPACITY];
     }
 
     @Override
-    public void push(T item) {
+    public void push(E item) {
         if (size == elementData.length) {
             grow();
         }
@@ -45,7 +45,7 @@ public class ArrayStack<T> implements IStack<T> {
     }
 
     @Override
-    public T pop() {
+    public E pop() {
         if (elementData.length / 4 >= size) {
             shrink();
         }
@@ -74,15 +74,15 @@ public class ArrayStack<T> implements IStack<T> {
 
     private void changeCapacity(int newCapacity) {
         elementData = Arrays.copyOf(elementData, newCapacity);
-        System.out.println("Change capacity: " + newCapacity);
+        System.out.println("Capacity changed: " + newCapacity);
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new ArrayStackIterator();
     }
 
-    private class ArrayStackIterator implements Iterator<T> {
+    private class ArrayStackIterator implements Iterator<E> {
 
         private int currentPosition = size;
 
@@ -92,7 +92,7 @@ public class ArrayStack<T> implements IStack<T> {
         }
 
         @Override
-        public T next() {
+        public E next() {
             return elementData[--currentPosition];
         }
 

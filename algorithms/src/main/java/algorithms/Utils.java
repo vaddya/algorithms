@@ -1,5 +1,6 @@
-package algorithms.sorting;
+package algorithms;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -7,7 +8,11 @@ import java.util.Random;
  *
  * @author vaddya
  */
-class Utils {
+public class Utils {
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(gen(1000)));
+    }
 
     private static Random random = new Random(System.currentTimeMillis());
 
@@ -23,8 +28,16 @@ class Utils {
         }
     }
 
-    public static int[] generate(int size) {
-        return null;
+    public static int[][] ARRAYS = new int[][] {
+            gen(10), gen(100), gen(1000), gen(10000)
+    };
+
+    public static int[] gen(int n) {
+        int[] array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = random.nextInt(5);
+        }
+        return array;
     }
 
 }

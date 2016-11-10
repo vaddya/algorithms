@@ -1,6 +1,6 @@
 package algorithms.sorting;
 
-import static algorithms.sorting.Utils.swap;
+import static algorithms.Utils.swap;
 
 /**
  * Max oriented heap sort algorithm
