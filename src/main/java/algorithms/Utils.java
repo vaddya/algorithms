@@ -11,7 +11,7 @@ import java.util.Random;
 public class Utils {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(gen(1000)));
+        System.out.println(Arrays.toString(gen(10)));
     }
 
     private static Random random = new Random(System.currentTimeMillis());
@@ -35,7 +35,7 @@ public class Utils {
     public static int[] gen(int n) {
         int[] array = new int[n];
         for (int i = 0; i < n; i++) {
-            array[i] = random.nextInt(5);
+            array[i] = random.nextInt(n);
         }
         return array;
     }

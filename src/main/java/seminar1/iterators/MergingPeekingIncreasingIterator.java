@@ -18,7 +18,17 @@ public class MergingPeekingIncreasingIterator implements Iterator<Integer> {
 
     private Comparator<PeekingIncreasingIterator> comparator = (p1, p2) -> p1.peek().compareTo(p2.peek());
 
-    public MergingPeekingIncreasingIterator(IPeekingIterator... peekingIterator) {
+    private int[] heap;
+
+    private IPeekingIterator<Integer>[] iterators;
+
+    public MergingPeekingIncreasingIterator(IPeekingIterator<Integer>... peekingIterator) {
+        iterators = peekingIterator;
+        int n = peekingIterator.length;
+        heap = new int[n];
+        for (int i = 0; i < n; i++) {
+            heap[i] = peekingIterator[i].next();
+        }
 //        USE HEAP
         /* TODO: implement it */
 //        for (int i = 0; i < peekingIterator.length; i++) {

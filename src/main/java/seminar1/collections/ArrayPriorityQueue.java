@@ -3,6 +3,7 @@ package seminar1.collections;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.PriorityQueue;
 
 /**
  * №10 iterator
@@ -17,8 +18,11 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
         for (int i = 10; i < 15; i++) {
             queue.add(i);
         }
-        while (!queue.isEmpty()) {
-            System.out.println(queue.extractMin());
+//        while (!queue.isEmpty()) {
+//            System.out.println(queue.extractMin());
+//        }
+        for (int i : queue) {
+            System.out.println(i);
         }
     }
 
@@ -77,7 +81,7 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
     private void siftUp() {
         int i = size - 1;
         int parent = parentOf(i);
-        while (i > 0 && greater(i, parent)) {
+        while (i > 0 && greater(parent, i)) {
             swap(array, i, parent);
             i = parent;
             parent = parentOf(i);
@@ -94,23 +98,23 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
         int right = rightOf(i);
         while (left <= size - 1) {
             if (right > size - 1) {
-                if (greater(left, i)) {
+                if (greater(i, left)) {
                     swap(array, i, left);
                 }
                 break;
             }
-            if (greater(left, i)) {
-                if (!greater(right, i)) {
+            if (greater(i, left)) {
+                if (!greater(i, right)) {
                     swap(array, i, left);
                     i = left;
                 } else {
-                    int max = greater(left, right)
-                            ? left
-                            : right;
-                    swap(array, i, max);
-                    i = max;
+                    int min = greater(left, right)
+                            ? right
+                            : left;
+                    swap(array, i, min);
+                    i = min;
                 }
-            } else if (greater(right, i)) {
+            } else if (greater(i, right)) {
                 swap(array, i, right);
                 i = right;
             } else {
@@ -156,7 +160,18 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
     @Override
     public Iterator<E> iterator() {
-        /* TODO: implement it */
-        return null;
+        // TODO: 11/13/2016 fix
+        return new Iterator<E>() {
+            private int curr = 0;
+            @Override
+            public boolean hasNext() {
+                return curr < size;
+            }
+
+            @Override
+            public E next() {
+                return array[curr];
+            }
+        };
     }
 }
