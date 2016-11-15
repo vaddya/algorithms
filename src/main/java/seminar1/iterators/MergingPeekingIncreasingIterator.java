@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 /**
- * №11 todo
+ * №11 TODO is doesn't work
  * Итератор возвращающий последовательность из N возрастающих итераторов в порядке возрастания
  * first = 1,3,4,5,7
  * second = 0,2,4,6,8
@@ -16,35 +16,85 @@ import java.util.Iterator;
  */
 public class MergingPeekingIncreasingIterator implements Iterator<Integer> {
 
+    public static void main(String[] args) {
+        PeekingIncreasingIterator first = new PeekingIncreasingIterator(100, 4, 3);
+        PeekingIncreasingIterator second = new PeekingIncreasingIterator(1, 4, 7);
+        MergingPeekingIncreasingIterator merging = new MergingPeekingIncreasingIterator(first, second);
+        for (int i = 0; i < 10; i++) {
+            System.out.println(merging.next());
+        }
+    }
+
     private Comparator<PeekingIncreasingIterator> comparator = (p1, p2) -> p1.peek().compareTo(p2.peek());
 
-    private int[] heap;
+    private PeekingIncreasingIterator[] iterators;
 
-    private IPeekingIterator<Integer>[] iterators;
-
-    public MergingPeekingIncreasingIterator(IPeekingIterator<Integer>... peekingIterator) {
+    public MergingPeekingIncreasingIterator(PeekingIncreasingIterator... peekingIterator) {
         iterators = peekingIterator;
-        int n = peekingIterator.length;
-        heap = new int[n];
-        for (int i = 0; i < n; i++) {
-            heap[i] = peekingIterator[i].next();
-        }
-//        USE HEAP
-        /* TODO: implement it */
-//        for (int i = 0; i < peekingIterator.length; i++) {
-//            peekingIterator[i].hasNext();
-//        }
+        build();
+    }
+
+    private void build() {
+        siftDown(); // fixme
     }
 
     @Override
     public boolean hasNext() {
-        /* TODO: implement it */
-        return false;
+        return iterators[0].hasNext();
     }
 
     @Override
     public Integer next() {
-        /* TODO: implement it */
-        return null;
+        int value = iterators[0].next();
+        siftDown();
+        return value;
+    }
+
+    private void siftDown() {
+        int i = 0;
+        int size = iterators.length - 1;
+        int left = leftOf(i);
+        int right = rightOf(i);
+        while (left <= size) {
+            if (right > size) {
+                if (comparator.compare(iterators[i], iterators[left]) > 0) {
+                    swap(iterators, i, left);
+                }
+                break;
+            }
+            if (comparator.compare(iterators[i], iterators[left]) < 0) {
+                if (comparator.compare(iterators[i], iterators[right]) > 0) {
+                    swap(iterators, i, left);
+                    i = left;
+                } else {
+                    int min = comparator.compare(iterators[left], iterators[right]) < 0
+                            ? left
+                            : right;
+                    swap(iterators, i, min);
+                    i = min;
+                }
+            } else if (comparator.compare(iterators[i], iterators[right]) < 0) {
+                swap(iterators, i, right);
+                i = right;
+            } else {
+                break;
+            }
+            left = leftOf(i);
+            right = rightOf(i);
+        }
+    }
+
+    private static int leftOf(int i) {
+        return i * 2 + 1;
+    }
+
+    private static int rightOf(int i) {
+        return i * 2 + 2;
+    }
+
+    private static void swap(IPeekingIterator[] iterators, int i, int j) {
+        IPeekingIterator temp = iterators[i];
+        iterators[i] = iterators[j];
+        iterators[j] = temp;
     }
 }

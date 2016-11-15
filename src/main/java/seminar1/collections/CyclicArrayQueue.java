@@ -1,20 +1,25 @@
 package seminar1.collections;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * №6 check
+ * №6
  */
 public class CyclicArrayQueue<Item> implements IQueue<Item> {
 
     public static void main(String[] args) {
         IQueue<Integer> queue = new CyclicArrayQueue<>();
-        for (int i = 0; i < 20; i++) {
-            queue.enqueue(i);
+        for (int i = 0; i < 30; i++) {
+            queue.enqueue(i); // 0 .. 29
         }
-//        while (!queue.isEmpty()) {
-//            System.out.println(queue.dequeue());
+        for (int i = 0; i < 25; i++) {
+            queue.dequeue(); // 25 .. 29
+        }
+        for (int i = 100; i < 120; i++) {
+            queue.enqueue(i); // 25 .. 29 100 .. 119
+        }
+//        while (!array.isEmpty()) {
+//            System.out.println(array.dequeue());
 //        }
         for (int i : queue) {
             System.out.println(i);
@@ -23,29 +28,32 @@ public class CyclicArrayQueue<Item> implements IQueue<Item> {
 
     private static final int INITIAL_SIZE = 10;
 
-    private Item[] queue;
+    private Item[] array;
     private int head;
     private int tail;
 
     @SuppressWarnings("unchecked")
     public CyclicArrayQueue() {
-        queue = (Item[]) new Object[INITIAL_SIZE];
+        array = (Item[]) new Object[INITIAL_SIZE];
         head = tail = 0;
     }
 
     @Override
     public void enqueue(Item item) {
-        if (size() == queue.length - 1) {
+        if (size() == array.length - 1) {
             grow();
         }
-        queue[tail] = item;
-        tail = (tail + 1) % queue.length;
+        array[tail] = item;
+        tail = (tail + 1) % array.length;
     }
 
     @Override
     public Item dequeue() {
-        Item item = queue[head];
-        head = (head + 1) % queue.length;
+        if (size() < array.length >> 2) {
+            shrink();
+        }
+        Item item = array[head];
+        head = (head + 1) % array.length;
         return item;
     }
 
@@ -56,19 +64,34 @@ public class CyclicArrayQueue<Item> implements IQueue<Item> {
 
     @Override
     public int size() {
-        if (head > tail) {
-            return queue.length - head + tail;
-        } else {
-            return tail - head;
-        }
+        return tail >= head
+                ? tail - head
+                : array.length - head + tail;
     }
 
     private void grow() {
-        changeCapacity((int) (queue.length * 1.5));
+        changeCapacity((int) (array.length * 1.5));
     }
 
+    private void shrink() {
+        changeCapacity(array.length >> 1);
+    }
+
+    @SuppressWarnings("unchecked")
     private void changeCapacity(int newCapacity) {
-        queue = Arrays.copyOf(queue, newCapacity);
+        Item[] newArray = (Item[]) new Object[newCapacity];
+        if (tail >= head) {
+            System.arraycopy(array, head, newArray, 0, size());
+            tail -= head;
+            head = 0;
+        } else {
+            System.arraycopy(array, 0, newArray, 0, tail);
+            int delta = array.length - head;
+            int newHead = newCapacity - delta;
+            System.arraycopy(array, head, newArray, newHead, delta);
+            head = newHead;
+        }
+        array = newArray;
 //        System.out.println("Capacity changed: " + newCapacity);
     }
 
@@ -84,8 +107,8 @@ public class CyclicArrayQueue<Item> implements IQueue<Item> {
 
             @Override
             public Item next() {
-                Item value = queue[curr];
-                curr = (curr + 1) % queue.length;
+                Item value = array[curr];
+                curr = (curr + 1) % array.length;
                 return value;
             }
         };

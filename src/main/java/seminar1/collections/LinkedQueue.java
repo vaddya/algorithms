@@ -27,25 +27,27 @@ public class LinkedQueue<Item> implements IQueue<Item> {
     // -> [tail -> .. -> .. -> head] ->
     private Node<Item> head;
     private Node<Item> tail;
-    private int size;
+    private int size = 0;
 
     @Override
     public void enqueue(Item item) {
-        if (size++ == 0) {
-            head = tail = new Node<Item>(item, null);
+        if (size == 0) {
+            head = tail = new Node<>(item, null);
         } else {
             tail = new Node<>(item, tail);
         }
+        size++;
     }
 
     @Override
     public Item dequeue() {
         if (size == 0) return null;
-        if (size-- == 1) {
+        if (size == 1) {
             return head.item;
         }
         Item value = head.item;
         head = findPrev(head);
+        size--;
         return value;
     }
 
