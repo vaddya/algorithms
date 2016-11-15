@@ -3,7 +3,6 @@ package seminar1.collections;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.PriorityQueue;
 
 /**
  * №10 iterator
@@ -28,13 +27,13 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
     private static final int DEFAULT_CAPACITY = 10;
 
-    private E[] array;
+    private E[] elementData;
     private int size = 0;
     private Comparator<E> comparator;
 
     @SuppressWarnings("unchecked")
     public ArrayPriorityQueue() {
-        array = (E[]) new Comparable[DEFAULT_CAPACITY];
+        elementData = (E[]) new Comparable[DEFAULT_CAPACITY];
     }
 
     public ArrayPriorityQueue(Comparator<E> comparator) {
@@ -44,25 +43,25 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
     @Override
     public void add(E key) {
-        if (size == array.length) {
+        if (size == elementData.length) {
             grow();
         }
-        array[size++] = key;
+        elementData[size++] = key;
         siftUp();
     }
 
     @Override
     public E peek() {
-        return size != 0 ? array[0] : null;
+        return size != 0 ? elementData[0] : null;
     }
 
     @Override
     public E extractMin() {
         if (size == 0) return null;
-        E element = array[0];
-        array[0] = array[--size];
+        E element = elementData[0];
+        elementData[0] = elementData[--size];
         siftDown();
-        if (array.length / 4 >= size) {
+        if (elementData.length / 4 >= size) {
             shrink();
         }
         return element;
@@ -82,7 +81,7 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
         int i = size - 1;
         int parent = parentOf(i);
         while (i > 0 && greater(parent, i)) {
-            swap(array, i, parent);
+            swap(elementData, i, parent);
             i = parent;
             parent = parentOf(i);
         }
@@ -99,23 +98,23 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
         while (left <= size - 1) {
             if (right > size - 1) {
                 if (greater(i, left)) {
-                    swap(array, i, left);
+                    swap(elementData, i, left);
                 }
                 break;
             }
             if (greater(i, left)) {
                 if (!greater(i, right)) {
-                    swap(array, i, left);
+                    swap(elementData, i, left);
                     i = left;
                 } else {
                     int min = greater(left, right)
                             ? right
                             : left;
-                    swap(array, i, min);
+                    swap(elementData, i, min);
                     i = min;
                 }
             } else if (greater(i, right)) {
-                swap(array, i, right);
+                swap(elementData, i, right);
                 i = right;
             } else {
                 break;
@@ -140,22 +139,22 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
     }
 
     private void grow() {
-        changeCapacity((int) (array.length * 1.5));
+        changeCapacity((int) (elementData.length * 1.5));
     }
 
     private void shrink() {
-        changeCapacity(array.length >> 1);
+        changeCapacity(elementData.length >> 1);
     }
 
     private void changeCapacity(int newCapacity) {
-        array = Arrays.copyOf(array, newCapacity);
+        elementData = Arrays.copyOf(elementData, newCapacity);
 //        System.out.println("Capacity changed: " + newCapacity);
     }
 
     private boolean greater(int i, int j) {
         return comparator == null
-                ? array[i].compareTo(array[j]) > 0
-                : comparator.compare(array[i], array[j]) > 0;
+                ? elementData[i].compareTo(elementData[j]) > 0
+                : comparator.compare(elementData[i], elementData[j]) > 0;
     }
 
     @Override
@@ -170,7 +169,7 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
             @Override
             public E next() {
-                return array[curr];
+                return elementData[curr];
             }
         };
     }

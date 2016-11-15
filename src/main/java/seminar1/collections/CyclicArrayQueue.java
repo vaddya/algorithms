@@ -18,8 +18,8 @@ public class CyclicArrayQueue<E> implements IQueue<E> {
         for (int i = 100; i < 120; i++) {
             queue.enqueue(i); // 25 .. 29 100 .. 119
         }
-//        while (!array.isEmpty()) {
-//            System.out.println(array.dequeue());
+//        while (!elementData.isEmpty()) {
+//            System.out.println(elementData.dequeue());
 //        }
         for (int i : queue) {
             System.out.println(i);
@@ -28,32 +28,32 @@ public class CyclicArrayQueue<E> implements IQueue<E> {
 
     private static final int INITIAL_SIZE = 10;
 
-    private E[] array;
+    private E[] elementData;
     private int head;
     private int tail;
 
     @SuppressWarnings("unchecked")
     public CyclicArrayQueue() {
-        array = (E[]) new Object[INITIAL_SIZE];
+        elementData = (E[]) new Object[INITIAL_SIZE];
         head = tail = 0;
     }
 
     @Override
     public void enqueue(E element) {
-        if (size() == array.length - 1) {
+        if (size() == elementData.length - 1) {
             grow();
         }
-        array[tail] = element;
-        tail = (tail + 1) % array.length;
+        elementData[tail] = element;
+        tail = (tail + 1) % elementData.length;
     }
 
     @Override
     public E dequeue() {
-        if (size() < array.length >> 2) {
+        if (size() < elementData.length >> 2) {
             shrink();
         }
-        E element = array[head];
-        head = (head + 1) % array.length;
+        E element = elementData[head];
+        head = (head + 1) % elementData.length;
         return element;
     }
 
@@ -66,33 +66,32 @@ public class CyclicArrayQueue<E> implements IQueue<E> {
     public int size() {
         return tail >= head
                 ? tail - head
-                : array.length - head + tail;
+                : elementData.length - head + tail;
     }
 
     private void grow() {
-        changeCapacity((int) (array.length * 1.5));
+        changeCapacity((int) (elementData.length * 1.5));
     }
 
     private void shrink() {
-        changeCapacity(array.length >> 1);
+        changeCapacity(elementData.length >> 1);
     }
 
     @SuppressWarnings("unchecked")
     private void changeCapacity(int newCapacity) {
-        E[] newArray = (E[]) new Object[newCapacity];
+        E[] newElementData = (E[]) new Object[newCapacity];
         if (tail >= head) {
-            System.arraycopy(array, head, newArray, 0, size());
+            System.arraycopy(elementData, head, newElementData, 0, size());
             tail -= head;
             head = 0;
         } else {
-            System.arraycopy(array, 0, newArray, 0, tail);
-            int delta = array.length - head;
+            System.arraycopy(elementData, 0, newElementData, 0, tail);
+            int delta = elementData.length - head;
             int newHead = newCapacity - delta;
-            System.arraycopy(array, head, newArray, newHead, delta);
+            System.arraycopy(elementData, head, newElementData, newHead, delta);
             head = newHead;
         }
-        array = newArray;
-//        System.out.println("Capacity changed: " + newCapacity);
+        elementData = newElementData;
     }
 
     @Override
@@ -107,8 +106,8 @@ public class CyclicArrayQueue<E> implements IQueue<E> {
 
             @Override
             public E next() {
-                E value = array[curr];
-                curr = (curr + 1) % array.length;
+                E value = elementData[curr];
+                curr = (curr + 1) % elementData.length;
                 return value;
             }
         };

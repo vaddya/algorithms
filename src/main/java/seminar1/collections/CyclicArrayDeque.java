@@ -21,9 +21,6 @@ public class CyclicArrayDeque<E> implements IDeque<E> {
             deque.pushBack(i); // -9 .. -1 1 .. 9
             deque.pushFront(-i);
         }
-//        while (!deque.isEmpty()) {
-//            System.out.println(deque.popFront());
-//        }
         for (int i : deque) {
             System.out.println(i);
         }
@@ -31,43 +28,43 @@ public class CyclicArrayDeque<E> implements IDeque<E> {
 
     private static final int INITIAL_SIZE = 10;
 
-    private E[] array;
+    private E[] elementData;
     private int head;
     private int tail;
 
     @SuppressWarnings("unchecked")
     public CyclicArrayDeque() {
-        array = (E[]) new Object[INITIAL_SIZE];
+        elementData = (E[]) new Object[INITIAL_SIZE];
         head = tail = 0;
     }
 
     @Override
     public void pushFront(E element) {
-        if (size() == array.length - 1) {
+        if (size() == elementData.length - 1) {
             grow();
         }
         head = head == 0
-                ? array.length - 1
+                ? elementData.length - 1
                 : head - 1;
-        array[head] = element;
+        elementData[head] = element;
     }
 
     @Override
     public void pushBack(E element) {
-        if (size() == array.length - 1) {
+        if (size() == elementData.length - 1) {
             grow();
         }
-        array[tail] = element;
-        tail = (tail + 1) % array.length;
+        elementData[tail] = element;
+        tail = (tail + 1) % elementData.length;
     }
 
     @Override
     public E popFront() {
-        if (size() < array.length >> 2) {
+        if (size() < elementData.length >> 2) {
             shrink();
         }
-        E value = array[head];
-        head = head == array.length - 1
+        E value = elementData[head];
+        head = head == elementData.length - 1
                 ? 0
                 : head + 1;
         return value;
@@ -75,13 +72,13 @@ public class CyclicArrayDeque<E> implements IDeque<E> {
 
     @Override
     public E popBack() {
-        if (size() < array.length >> 2) {
+        if (size() < elementData.length >> 2) {
             shrink();
         }
         tail = tail == 0
-                ? array.length - 1
+                ? elementData.length - 1
                 : tail - 1;
-        return array[tail];
+        return elementData[tail];
     }
 
     @Override
@@ -93,33 +90,32 @@ public class CyclicArrayDeque<E> implements IDeque<E> {
     public int size() {
         return tail >= head
                 ? tail - head
-                : array.length - head + tail;
+                : elementData.length - head + tail;
     }
 
     private void grow() {
-        changeCapacity((int) (array.length * 1.5));
+        changeCapacity((int) (elementData.length * 1.5));
     }
 
     private void shrink() {
-        changeCapacity(array.length >> 1);
+        changeCapacity(elementData.length >> 1);
     }
 
     @SuppressWarnings("unchecked")
     private void changeCapacity(int newCapacity) {
         E[] newQueue = (E[]) new Object[newCapacity];
         if (tail >= head) {
-            System.arraycopy(array, head, newQueue, 0, size());
+            System.arraycopy(elementData, head, newQueue, 0, size());
             tail -= head;
             head = 0;
         } else {
-            System.arraycopy(array, 0, newQueue, 0, tail);
-            int delta = array.length - head;
+            System.arraycopy(elementData, 0, newQueue, 0, tail);
+            int delta = elementData.length - head;
             int newHead = newCapacity - delta;
-            System.arraycopy(array, head, newQueue, newHead, delta);
+            System.arraycopy(elementData, head, newQueue, newHead, delta);
             head = newHead;
         }
-        array = newQueue;
-//        System.out.println("Capacity changed: " + newCapacity);
+        elementData = newQueue;
     }
 
     @Override
@@ -134,8 +130,8 @@ public class CyclicArrayDeque<E> implements IDeque<E> {
 
             @Override
             public E next() {
-                E value = array[curr];
-                curr = (curr + 1) % array.length;
+                E value = elementData[curr];
+                curr = (curr + 1) % elementData.length;
                 return value;
             }
         };
