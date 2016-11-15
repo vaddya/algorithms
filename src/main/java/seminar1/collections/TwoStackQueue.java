@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * №5.2
  */
-public class TwoStackQueue<Item> implements IQueue<Item> {
+public class TwoStackQueue<E> implements IQueue<E> {
 
     public static void main(String[] args) {
         TwoStackQueue<Integer> queue = new TwoStackQueue<>();
@@ -21,21 +21,21 @@ public class TwoStackQueue<Item> implements IQueue<Item> {
         }
     }
 
-    private IStack<Item> stack1;
-    private IStack<Item> stack2;
+    private IStack<E> stack1;
+    private IStack<E> stack2;
 
     public TwoStackQueue() {
-        stack1 = new ArrayStack<Item>();
-        stack2 = new ArrayStack<Item>();
+        stack1 = new ArrayStack<E>();
+        stack2 = new ArrayStack<E>();
     }
 
     @Override
-    public void enqueue(Item item) {
-        stack1.push(item);
+    public void enqueue(E element) {
+        stack1.push(element);
     }
 
     @Override
-    public Item dequeue() {
+    public E dequeue() {
         if (stack2.isEmpty()) {
             while (!stack1.isEmpty()) {
                 stack2.push(stack1.pop());
@@ -55,7 +55,7 @@ public class TwoStackQueue<Item> implements IQueue<Item> {
     }
 
     @Override
-    public Iterator<Item> iterator() {
+    public Iterator<E> iterator() {
         /* TODO: implement it (optional) */
         return null;
     }

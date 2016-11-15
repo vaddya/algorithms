@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * №8
  */
-public class LinkedDeque<Item> implements IDeque<Item> {
+public class LinkedDeque<E> implements IDeque<E> {
 
     public static void main(String[] args) {
         LinkedDeque<Integer> deque = new LinkedDeque<>();
@@ -26,12 +26,12 @@ public class LinkedDeque<Item> implements IDeque<Item> {
         }
     }
 
-    private Node<Item> head;
-    private Node<Item> tail;
+    private Node<E> head;
+    private Node<E> tail;
     private int size = 0;
 
     @Override
-    public void pushFront(Item element) {
+    public void pushFront(E element) {
         if (size++ == 0) {
             head = tail = new Node<>(element, null, null);
         } else {
@@ -41,7 +41,7 @@ public class LinkedDeque<Item> implements IDeque<Item> {
     }
 
     @Override
-    public void pushBack(Item element) {
+    public void pushBack(E element) {
         if (size++ == 0) {
             head = tail = new Node<>(element, null, null);
         } else {
@@ -51,9 +51,9 @@ public class LinkedDeque<Item> implements IDeque<Item> {
     }
 
     @Override
-    public Item popFront() {
+    public E popFront() {
         if (size == 0) return null;
-        Item value = head.item;
+        E value = head.item;
         if (size-- == 1) {
             tail = head = null;
             return value;
@@ -65,9 +65,9 @@ public class LinkedDeque<Item> implements IDeque<Item> {
     }
 
     @Override
-    public Item popBack() {
+    public E popBack() {
         if (size == 0) return null;
-        Item value = tail.item;
+        E value = tail.item;
         if (size-- == 1) {
             tail = head = null;
             return value;
@@ -89,10 +89,10 @@ public class LinkedDeque<Item> implements IDeque<Item> {
     }
 
     @Override
-    public Iterator<Item> iterator() {
-        return new Iterator<Item>() {
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
 
-            private Node<Item> curr = head;
+            private Node<E> curr = head;
 
             @Override
             public boolean hasNext() {
@@ -100,24 +100,24 @@ public class LinkedDeque<Item> implements IDeque<Item> {
             }
 
             @Override
-            public Item next() {
-                Item value = curr.item;
+            public E next() {
+                E value = curr.item;
                 curr = curr.prev;
                 return value;
             }
         };
     }
 
-    private static class Node<Item> {
-        Item item;
-        Node<Item> next;
-        Node<Item> prev;
+    private static class Node<E> {
+        E item;
+        Node<E> next;
+        Node<E> prev;
 
-        public Node(Item item) {
+        public Node(E item) {
             this.item = item;
         }
 
-        public Node(Item item, Node<Item> next, Node<Item> prev) {
+        public Node(E item, Node<E> next, Node<E> prev) {
             this.item = item;
             this.next = next;
             this.prev = prev;

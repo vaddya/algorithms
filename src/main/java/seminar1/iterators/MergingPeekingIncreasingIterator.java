@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 /**
- * №11 TODO is doesn't work
+ * №11 TODO it doesn't work
  * Итератор возвращающий последовательность из N возрастающих итераторов в порядке возрастания
  * first = 1,3,4,5,7
  * second = 0,2,4,6,8

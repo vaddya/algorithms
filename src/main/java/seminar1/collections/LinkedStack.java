@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * №3
  */
-public class LinkedStack<T> implements IStack<T> {
+public class LinkedStack<E> implements IStack<E> {
 
     public static void main(String[] args) {
         IStack<Integer> stack = new LinkedStack<>();
@@ -17,19 +17,19 @@ public class LinkedStack<T> implements IStack<T> {
         }
     }
 
-    private Node<T> head;
+    private Node<E> head;
     private int size;
 
     @Override
-    public void push(T item) {
-        Node<T> curr = new Node<T>(item, head);
+    public void push(E item) {
+        Node<E> curr = new Node<E>(item, head);
         head = curr;
         size++;
     }
 
     @Override
-    public T pop() {
-        Node<T> curr = head;
+    public E pop() {
+        Node<E> curr = head;
         head = head.next;
         size--;
         return curr.item;
@@ -46,13 +46,13 @@ public class LinkedStack<T> implements IStack<T> {
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
         return new LinkedStackIterator();
     }
 
-    private class LinkedStackIterator implements Iterator<T> {
+    private class LinkedStackIterator implements Iterator<E> {
 
-        private Node<T> current = head;
+        private Node<E> current = head;
 
         @Override
         public boolean hasNext() {
@@ -60,8 +60,8 @@ public class LinkedStack<T> implements IStack<T> {
         }
 
         @Override
-        public T next() {
-            T res = current.item;
+        public E next() {
+            E res = current.item;
             current = current.next;
             return res;
         }

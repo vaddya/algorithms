@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * №9
  */
-public class CyclicArrayDeque<Item> implements IDeque<Item> {
+public class CyclicArrayDeque<E> implements IDeque<E> {
 
     public static void main(String[] args) {
         CyclicArrayDeque<Integer> deque = new CyclicArrayDeque<>();
@@ -31,42 +31,42 @@ public class CyclicArrayDeque<Item> implements IDeque<Item> {
 
     private static final int INITIAL_SIZE = 10;
 
-    private Item[] array;
+    private E[] array;
     private int head;
     private int tail;
 
     @SuppressWarnings("unchecked")
     public CyclicArrayDeque() {
-        array = (Item[]) new Object[INITIAL_SIZE];
+        array = (E[]) new Object[INITIAL_SIZE];
         head = tail = 0;
     }
 
     @Override
-    public void pushFront(Item item) {
+    public void pushFront(E element) {
         if (size() == array.length - 1) {
             grow();
         }
         head = head == 0
                 ? array.length - 1
                 : head - 1;
-        array[head] = item;
+        array[head] = element;
     }
 
     @Override
-    public void pushBack(Item item) {
+    public void pushBack(E element) {
         if (size() == array.length - 1) {
             grow();
         }
-        array[tail] = item;
+        array[tail] = element;
         tail = (tail + 1) % array.length;
     }
 
     @Override
-    public Item popFront() {
+    public E popFront() {
         if (size() < array.length >> 2) {
             shrink();
         }
-        Item value = array[head];
+        E value = array[head];
         head = head == array.length - 1
                 ? 0
                 : head + 1;
@@ -74,7 +74,7 @@ public class CyclicArrayDeque<Item> implements IDeque<Item> {
     }
 
     @Override
-    public Item popBack() {
+    public E popBack() {
         if (size() < array.length >> 2) {
             shrink();
         }
@@ -106,7 +106,7 @@ public class CyclicArrayDeque<Item> implements IDeque<Item> {
 
     @SuppressWarnings("unchecked")
     private void changeCapacity(int newCapacity) {
-        Item[] newQueue = (Item[]) new Object[newCapacity];
+        E[] newQueue = (E[]) new Object[newCapacity];
         if (tail >= head) {
             System.arraycopy(array, head, newQueue, 0, size());
             tail -= head;
@@ -123,8 +123,8 @@ public class CyclicArrayDeque<Item> implements IDeque<Item> {
     }
 
     @Override
-    public Iterator<Item> iterator() {
-        return new Iterator<Item>() {
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
             int curr = head;
 
             @Override
@@ -133,8 +133,8 @@ public class CyclicArrayDeque<Item> implements IDeque<Item> {
             }
 
             @Override
-            public Item next() {
-                Item value = array[curr];
+            public E next() {
+                E value = array[curr];
                 curr = (curr + 1) % array.length;
                 return value;
             }

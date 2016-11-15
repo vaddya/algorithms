@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * №6
  */
-public class CyclicArrayQueue<Item> implements IQueue<Item> {
+public class CyclicArrayQueue<E> implements IQueue<E> {
 
     public static void main(String[] args) {
         IQueue<Integer> queue = new CyclicArrayQueue<>();
@@ -28,33 +28,33 @@ public class CyclicArrayQueue<Item> implements IQueue<Item> {
 
     private static final int INITIAL_SIZE = 10;
 
-    private Item[] array;
+    private E[] array;
     private int head;
     private int tail;
 
     @SuppressWarnings("unchecked")
     public CyclicArrayQueue() {
-        array = (Item[]) new Object[INITIAL_SIZE];
+        array = (E[]) new Object[INITIAL_SIZE];
         head = tail = 0;
     }
 
     @Override
-    public void enqueue(Item item) {
+    public void enqueue(E element) {
         if (size() == array.length - 1) {
             grow();
         }
-        array[tail] = item;
+        array[tail] = element;
         tail = (tail + 1) % array.length;
     }
 
     @Override
-    public Item dequeue() {
+    public E dequeue() {
         if (size() < array.length >> 2) {
             shrink();
         }
-        Item item = array[head];
+        E element = array[head];
         head = (head + 1) % array.length;
-        return item;
+        return element;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class CyclicArrayQueue<Item> implements IQueue<Item> {
 
     @SuppressWarnings("unchecked")
     private void changeCapacity(int newCapacity) {
-        Item[] newArray = (Item[]) new Object[newCapacity];
+        E[] newArray = (E[]) new Object[newCapacity];
         if (tail >= head) {
             System.arraycopy(array, head, newArray, 0, size());
             tail -= head;
@@ -96,8 +96,8 @@ public class CyclicArrayQueue<Item> implements IQueue<Item> {
     }
 
     @Override
-    public Iterator<Item> iterator() {
-        return new Iterator<Item>() {
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
             int curr = head;
 
             @Override
@@ -106,8 +106,8 @@ public class CyclicArrayQueue<Item> implements IQueue<Item> {
             }
 
             @Override
-            public Item next() {
-                Item value = array[curr];
+            public E next() {
+                E value = array[curr];
                 curr = (curr + 1) % array.length;
                 return value;
             }

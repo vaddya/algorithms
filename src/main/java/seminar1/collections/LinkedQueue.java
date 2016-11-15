@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * №4.2
  */
-public class LinkedQueue<Item> implements IQueue<Item> {
+public class LinkedQueue<E> implements IQueue<E> {
 
     public static void main(String[] args) {
         LinkedQueue<Integer> queue = new LinkedQueue<>();
@@ -25,35 +25,35 @@ public class LinkedQueue<Item> implements IQueue<Item> {
     }
 
     // -> [tail -> .. -> .. -> head] ->
-    private Node<Item> head;
-    private Node<Item> tail;
+    private Node<E> head;
+    private Node<E> tail;
     private int size = 0;
 
     @Override
-    public void enqueue(Item item) {
+    public void enqueue(E element) {
         if (size == 0) {
-            head = tail = new Node<>(item, null);
+            head = tail = new Node<>(element, null);
         } else {
-            tail = new Node<>(item, tail);
+            tail = new Node<>(element, tail);
         }
         size++;
     }
 
     @Override
-    public Item dequeue() {
+    public E dequeue() {
         if (size == 0) return null;
         if (size == 1) {
             return head.item;
         }
-        Item value = head.item;
+        E value = head.item;
         head = findPrev(head);
         size--;
         return value;
     }
 
-    private Node<Item> findPrev(Node<Item> node) {
+    private Node<E> findPrev(Node<E> node) {
         if (node == tail) return null;
-        Node<Item> curr = tail;
+        Node<E> curr = tail;
         while (curr.next != null && curr.next != node) {
             curr = curr.next;
         }
@@ -71,13 +71,13 @@ public class LinkedQueue<Item> implements IQueue<Item> {
     }
 
     @Override
-    public Iterator<Item> iterator() {
+    public Iterator<E> iterator() {
         return new LinkedQueueIterator();
     }
 
-    private class LinkedQueueIterator implements Iterator<Item> {
+    private class LinkedQueueIterator implements Iterator<E> {
 
-        private Node<Item> curr = head;
+        private Node<E> curr = head;
 
         @Override
         public boolean hasNext() {
@@ -85,12 +85,11 @@ public class LinkedQueue<Item> implements IQueue<Item> {
         }
 
         @Override
-        public Item next() {
-            Item value = curr.item;
+        public E next() {
+            E value = curr.item;
             curr = findPrev(curr);
             return value;
         }
-
     }
 
     private static class Node<Item> {
