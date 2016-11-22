@@ -1,6 +1,5 @@
 package algorithms;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -10,11 +9,7 @@ import java.util.Random;
  */
 public class Utils {
 
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(gen(10)));
-    }
-
-    private static Random random = new Random(System.currentTimeMillis());
+    private static Random random = new Random(37); // const
 
     public static void swap(int[] array, int i, int j) {
         int tmp = array[i];
@@ -28,9 +23,22 @@ public class Utils {
         }
     }
 
-    public static int[][] ARRAYS = new int[][] {
-            gen(10), gen(100), gen(1000), gen(10000)
+    public static boolean isSorted(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] > array[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int[][] arrays = new int[][]{
+            gen(100),
+            gen(1000),
+            gen(10000),
+            gen(100000)
     };
+
 
     public static int[] gen(int n) {
         int[] array = new int[n];
@@ -40,4 +48,16 @@ public class Utils {
         return array;
     }
 
+    public static String[] genStrings(int n) {
+        String[] array = new String[n];
+        for (int i = 0; i < n; i++) {
+            int length = 1 + random.nextInt(10);
+            StringBuilder sb = new StringBuilder(length);
+            for (int j = 0; j < length; j++) {
+                sb.append((char) ('a' + random.nextInt(26)));
+            }
+            array[i] = sb.toString();
+        }
+        return array;
+    }
 }

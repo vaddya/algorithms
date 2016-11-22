@@ -1,12 +1,12 @@
-package algorithms.sorting;
+package module2.sorting;
 
 import static algorithms.Utils.swap;
 
 /**
- * Shell sort algorithm
+ * Сортировка Шелла
  *
  * @author vaddya
- * @since November 08, 2016
+ * @since November 19, 2016
  */
 public class ShellSort {
 
