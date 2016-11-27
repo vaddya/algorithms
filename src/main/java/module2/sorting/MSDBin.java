@@ -8,19 +8,14 @@ package module2.sorting;
  */
 public class MSDBin {
 
-    public static void main(String[] args) {
-        int[] array = {0b1111, 0b0, 0b1, 0b10, 0b101, 0b100, 0b101};
-        for (int i : sort(array)) {
-            System.out.print(Integer.toBinaryString(i) + " ");
-        }
-    }
-
     public static int[] sort(int[] array) {
+        if (array == null) return null;
         int[] res = new int[array.length];
         return msdSort(array, res, 0, array.length - 1, 0);
     }
 
     private static final int ALPHABET = 2; // BIN
+
     private static final int THRESHOLD = 20;
 
     private static int[] msdSort(int[] a, int[] res, int left, int right, int r) {

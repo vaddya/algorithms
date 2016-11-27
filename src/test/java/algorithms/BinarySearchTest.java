@@ -5,7 +5,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 
 /**
- * Created by Vadim on 10/9/2016.
+ * test at technopolis
+ *
+ * @author vaddya
+ * @since November 27, 2016
  */
 public class BinarySearchTest {
 

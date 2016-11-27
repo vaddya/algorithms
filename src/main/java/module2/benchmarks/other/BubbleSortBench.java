@@ -1,4 +1,4 @@
-package module2.benchmarks;
+package module2.benchmarks.other;
 
 import algorithms.sorting.BubbleSort;
 import org.openjdk.jmh.annotations.*;

@@ -32,11 +32,27 @@ public class Utils {
         return true;
     }
 
+    public static boolean isSorted(String[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i].compareTo(array[i + 1]) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static int[][] arrays = new int[][]{
             gen(100),
             gen(1000),
             gen(10000),
             gen(100000)
+    };
+
+    public static String[][] strings = new String[][]{
+            genStrings(100),
+            genStrings(1000),
+            genStrings(10000),
+            genStrings(100000)
     };
 
 
@@ -51,7 +67,7 @@ public class Utils {
     public static String[] genStrings(int n) {
         String[] array = new String[n];
         for (int i = 0; i < n; i++) {
-            int length = 1 + random.nextInt(10);
+            int length = 1 + random.nextInt(20);
             StringBuilder sb = new StringBuilder(length);
             for (int j = 0; j < length; j++) {
                 sb.append((char) ('a' + random.nextInt(26)));

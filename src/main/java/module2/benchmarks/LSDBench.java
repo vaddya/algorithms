@@ -1,6 +1,6 @@
 package module2.benchmarks;
 
-import module2.sorting.ShellSort;
+import module2.sorting.LSD;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
@@ -13,20 +13,20 @@ import java.util.concurrent.TimeUnit;
 import static algorithms.Utils.arrays;
 
 /**
- * Сортировка Шелла
- * Benchmark               (index)  Mode  Cnt         Score        Error  Units
- * ShellSortBench.measure        0  avgt    5      1084.799 ±    109.094  ns/op
- * ShellSortBench.measure        1  avgt    5     58395.881 ±   7566.782  ns/op
- * ShellSortBench.measure        2  avgt    5    961709.762 ±  45108.910  ns/op
- * ShellSortBench.measure        3  avgt    5  13079416.605 ± 364336.184  ns/op
+ * LSD
+ * Benchmark         (index)  Mode  Cnt         Score         Error  Units
+ * LSDBench.measure        0  avgt    5     65028.430 ±   15315.158  ns/op
+ * LSDBench.measure        1  avgt    5    609223.492 ±  138803.648  ns/op
+ * LSDBench.measure        2  avgt    5   6018122.157 ±   94934.323  ns/op
+ * LSDBench.measure        3  avgt    5  67337101.143 ± 3935848.561  ns/op
  *
  * @author vaddya
- * @since November 08, 2016
+ * @since November 27, 2016
  */
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class ShellSortBench {
+public class LSDBench {
 
     private int[] array;
 
@@ -40,12 +40,12 @@ public class ShellSortBench {
 
     @Benchmark
     public void measure(Blackhole bh) {
-        bh.consume(ShellSort.sort(array));
+        bh.consume(LSD.sort(array));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(ShellSortBench.class.getSimpleName())
+                .include(LSDBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)

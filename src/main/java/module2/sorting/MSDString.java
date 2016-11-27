@@ -1,9 +1,5 @@
 package module2.sorting;
 
-import java.util.Arrays;
-
-import static algorithms.Utils.genStrings;
-
 /**
  * MSD для строк разной длины (алфавит ASCII — 256 символов)
  *
@@ -11,11 +7,6 @@ import static algorithms.Utils.genStrings;
  * @since November 19, 2016
  */
 public class MSDString {
-
-    public static void main(String[] args) {
-        String[] array = genStrings(10);
-        System.out.println(Arrays.toString(sort(array)));
-    }
 
     public static String[] sort(String[] array) {
         String[] res = new String[array.length];

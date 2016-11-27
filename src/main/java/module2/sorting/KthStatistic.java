@@ -1,9 +1,7 @@
 package module2.sorting;
 
-import java.util.Arrays;
 import java.util.Random;
 
-import static algorithms.Utils.gen;
 import static algorithms.Utils.swap;
 
 /**
@@ -14,16 +12,7 @@ import static algorithms.Utils.swap;
  */
 public class KthStatistic {
 
-    public static void main(String[] args) {
-        int[] array = gen(10);
-        System.out.println(Arrays.toString(array));
-        kthElement(array, 0);
-        System.out.println(Arrays.toString(array));
-    }
-
-    private static Random random = new Random(System.currentTimeMillis());
-
-    public static void kthElement(int[] a, int k) {
+    public static int kthElement(int[] a, int k) {
         int left = 0;
         int right = a.length - 1;
         while (right > left) {
@@ -34,24 +23,30 @@ public class KthStatistic {
             } else if (k > idx) {
                 left = idx + 1;
             } else {
-                return; //a[k] — ответ
+                return a[k];
             }
         }
+        return 0;
+
     }
 
+    private static Random random = new Random(System.currentTimeMillis());
+
     private static int partition(int[] a, int left, int right, int pivot) {
-        if (left > right) return right;
+        if (left > right) {
+            return right;
+        }
         int i = left;
         int j = right;
         int x = a[pivot];
-        swap(a, j--, pivot); //Поменяли с крайним
+        swap(a, j--, pivot);
         while (i <= j) {
             while (i <= j && a[i] < x) i++;
             while (i <= j && a[j] > x) j--;
             if (i >= j) break;
             swap(a, i++, j--);
         }
-        swap(a, i, right); //Вернули на место
+        swap(a, i, right);
         return i;
     }
 }

@@ -1,7 +1,5 @@
 package module2.sorting;
 
-import java.util.Arrays;
-
 /**
  * LSD для типа long по байтам
  *
@@ -10,15 +8,8 @@ import java.util.Arrays;
  */
 public class LSD {
 
-    public static void main(String[] args) {
-        int[] array = {871, 163, 934, 916, 162};
-        sort(array);
-        System.out.println(Arrays.toString(array));
-    }
-
     private static final int ALPHABET = 10;
 
-    // TODO: 11/21/2016 long bytes
     public static int[] sort(int[] array) {
         int d = 20;
         int n = array.length;

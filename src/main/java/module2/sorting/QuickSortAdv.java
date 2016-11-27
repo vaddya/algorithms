@@ -1,5 +1,7 @@
 package module2.sorting;
 
+import java.util.Random;
+
 import static algorithms.Utils.swap;
 
 /**
@@ -16,24 +18,34 @@ public class QuickSortAdv {
         return array;
     }
 
-    // TODO: 11/21/2016 разделение на три и рандом
     private static void sort(int[] array, int left, int right) {
-        if (left >= right) return;
-        int pivot = partition(array, left, right);
-        sort(array, left, pivot);
-        sort(array, pivot + 1, right);
-    }
-
-    private static int partition(int[] a, int l, int r) {
-        int x = a[l + (r - l + 1) / 2];
-        int i = l;
-        int j = r;
-        while (i <= j) {
-            while (a[i] < x) i++;
-            while (a[j] > x) j--;
-            if (i <= j) swap(a, i++, j--);
+        if (left >= right) {
+            return;
         }
-        return j;
-    }
+        int pivot = left + new Random().nextInt(right - left + 1);
+        int x = array[pivot];
+        int q = left;
+        int p = left;
+        swap(array, left, pivot);
 
+        for (int i = left + 1; i <= right; i++) {
+            if (array[i] < x) {
+                q++;
+                swap(array, i, q);
+            } else if (array[i] == x) {
+                q++;
+                p++;
+                swap(array, i, q);
+                swap(array, p, q);
+            }
+        }
+
+        int m = q;
+        for (int i = left; i <= p; i++) {
+            swap(array, q--, i);
+        }
+
+        sort(array, left, q);
+        sort(array, m + 1, right);
+    }
 }

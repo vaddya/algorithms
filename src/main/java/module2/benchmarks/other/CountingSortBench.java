@@ -1,4 +1,4 @@
-package module2.benchmarks;
+package module2.benchmarks.other;
 
 import algorithms.sorting.CountingSort;
 import org.openjdk.jmh.annotations.*;
@@ -25,7 +25,7 @@ public class CountingSortBench {
 
     private int[] array;
 
-    @Param({"0"})
+    @Param({"0", "1", "2", "3"})
     private int index;
 
     @Setup(value = Level.Invocation)

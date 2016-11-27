@@ -1,6 +1,6 @@
 package module2.benchmarks;
 
-import module2.sorting.ShellSort;
+import module2.sorting.MSDString;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
@@ -10,42 +10,42 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-import static algorithms.Utils.arrays;
+import static algorithms.Utils.strings;
 
 /**
- * Сортировка Шелла
- * Benchmark               (index)  Mode  Cnt         Score        Error  Units
- * ShellSortBench.measure        0  avgt    5      1084.799 ±    109.094  ns/op
- * ShellSortBench.measure        1  avgt    5     58395.881 ±   7566.782  ns/op
- * ShellSortBench.measure        2  avgt    5    961709.762 ±  45108.910  ns/op
- * ShellSortBench.measure        3  avgt    5  13079416.605 ± 364336.184  ns/op
+ * MSD для строк разной длины (алфавит ASCII — 256 символов)
+ * Benchmark               (index)  Mode  Cnt         Score         Error  Units
+ * MSDStringSortBench.measure        0  avgt    5     40126.543 ±    7413.369  ns/op
+ * MSDStringSortBench.measure        1  avgt    5    890789.487 ±   51892.985  ns/op
+ * MSDStringSortBench.measure        2  avgt    5   4889776.722 ±  291305.869  ns/op
+ * MSDStringSortBench.measure        3  avgt    5  65745804.738 ± 1729054.340  ns/op
  *
  * @author vaddya
- * @since November 08, 2016
+ * @since November 27, 2016
  */
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class ShellSortBench {
+public class MSDStringSortBench {
 
-    private int[] array;
+    private String[] array;
 
     @Param({"0", "1", "2", "3"})
     private int index;
 
     @Setup(value = Level.Invocation)
     public void setUpInvocation() {
-        array = arrays[index].clone();
+        array = strings[index].clone();
     }
 
     @Benchmark
     public void measure(Blackhole bh) {
-        bh.consume(ShellSort.sort(array));
+        bh.consume(MSDString.sort(array));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(ShellSortBench.class.getSimpleName())
+                .include(MSDStringSortBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)

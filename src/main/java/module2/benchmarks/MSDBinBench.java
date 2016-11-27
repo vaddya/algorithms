@@ -1,6 +1,6 @@
 package module2.benchmarks;
 
-import module2.sorting.ShellSort;
+import module2.sorting.MSDBin;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
@@ -13,20 +13,20 @@ import java.util.concurrent.TimeUnit;
 import static algorithms.Utils.arrays;
 
 /**
- * Сортировка Шелла
- * Benchmark               (index)  Mode  Cnt         Score        Error  Units
- * ShellSortBench.measure        0  avgt    5      1084.799 ±    109.094  ns/op
- * ShellSortBench.measure        1  avgt    5     58395.881 ±   7566.782  ns/op
- * ShellSortBench.measure        2  avgt    5    961709.762 ±  45108.910  ns/op
- * ShellSortBench.measure        3  avgt    5  13079416.605 ± 364336.184  ns/op
+ * MSD для двоичных чисел (без учёта знака)
+ * Benchmark            (index)  Mode  Cnt         Score         Error  Units
+ * MSDBinBench.measure        0  avgt    5     45466.106 ±    3025.171  ns/op
+ * MSDBinBench.measure        1  avgt    5    455724.540 ±   17256.426  ns/op
+ * MSDBinBench.measure        2  avgt    5   4636629.994 ±  316153.921  ns/op
+ * MSDBinBench.measure        3  avgt    5  46688373.391 ± 2642299.736  ns/op
  *
  * @author vaddya
- * @since November 08, 2016
+ * @since November 27, 2016
  */
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class ShellSortBench {
+public class MSDBinBench {
 
     private int[] array;
 
@@ -40,12 +40,12 @@ public class ShellSortBench {
 
     @Benchmark
     public void measure(Blackhole bh) {
-        bh.consume(ShellSort.sort(array));
+        bh.consume(MSDBin.sort(array));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(ShellSortBench.class.getSimpleName())
+                .include(MSDBinBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)

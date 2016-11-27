@@ -1,6 +1,6 @@
 package module2.benchmarks;
 
-import algorithms.sorting.SelectionSort;
+import module2.sorting.InsertionSortAdv;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
@@ -13,19 +13,24 @@ import java.util.concurrent.TimeUnit;
 import static algorithms.Utils.arrays;
 
 /**
- * module2.benchmarks at technopolis
+ * Сортировка вставками + бин.поиск + сдвиги
+ * Benchmark                      (index)  Mode  Cnt           Score           Error  Units
+ * InsertionSortAdvBench.measure        0  avgt    5       1820.705 ±     287.146  ns/op
+ * InsertionSortAdvBench.measure        1  avgt    5      76848.979 ±    7098.226  ns/op
+ * InsertionSortAdvBench.measure        2  avgt    5    2798367.506 ±  144697.508  ns/op
+ * InsertionSortAdvBench.measure        3  avgt    5  329969681.150 ± 5928160.624  ns/op
  *
  * @author vaddya
- * @since November 08, 2016
+ * @since November 27, 2016
  */
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class SelectionSortBench {
+public class InsertionSortAdvBench {
 
     private int[] array;
 
-    @Param({"0"})
+    @Param({"0", "1", "2", "3"})
     private int index;
 
     @Setup(value = Level.Invocation)
@@ -35,12 +40,12 @@ public class SelectionSortBench {
 
     @Benchmark
     public void measure(Blackhole bh) {
-        bh.consume(SelectionSort.sort(array));
+        bh.consume(InsertionSortAdv.sort(array));
     }
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(SelectionSortBench.class.getSimpleName())
+                .include(InsertionSortAdvBench.class.getSimpleName())
                 .warmupIterations(5)
                 .measurementIterations(5)
                 .forks(1)
