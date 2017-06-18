@@ -1,5 +1,7 @@
 package algorithms.sorting;
 
+import java.util.Arrays;
+
 import static algorithms.Utils.shuffle;
 import static algorithms.Utils.swap;
 
@@ -25,7 +27,8 @@ public class QuickSort {
     }
 
     private static int partition(int[] a, int l, int r) {
-        int x = a[l + (r - l + 1) / 2];
+//        int x = a[l + (r - l + 1) / 2];
+        int x = a[l];
         int i = l;
         int j = r;
         while (i <= j) {
@@ -34,5 +37,11 @@ public class QuickSort {
             if (i <= j) swap(a, i++, j--);
         }
         return j;
+    }
+
+    public static void main(String[] args) {
+        int[] x = {6, 11, 8, 1, 4, 13, 5, 7, 2, 15, 14, 10, 3, 12, 9};
+        partition(x, 0, x.length - 1);
+        System.out.println(Arrays.toString(x));
     }
 }
