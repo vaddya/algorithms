@@ -1,4 +1,4 @@
-group 'ru.vaddya'
+group 'com.vaddya'
 version '1.0'
 
 apply plugin: 'java'
