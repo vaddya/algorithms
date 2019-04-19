@@ -148,7 +148,6 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
     private void changeCapacity(int newCapacity) {
         elementData = Arrays.copyOf(elementData, newCapacity);
-//        System.out.println("Capacity changed: " + newCapacity);
     }
 
     private boolean greater(int i, int j) {
@@ -159,9 +158,9 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
     @Override
     public Iterator<E> iterator() {
-        // TODO: 11/13/2016 fix
-        return new Iterator<E>() {
+        return new Iterator<>() {
             private int curr = 0;
+
             @Override
             public boolean hasNext() {
                 return curr < size;
