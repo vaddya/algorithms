@@ -158,7 +158,7 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<>() {
+        return new Iterator<E>() {
             private int curr = 0;
 
             @Override
@@ -168,7 +168,7 @@ public class ArrayPriorityQueue<E extends Comparable<E>> implements IPriorityQue
 
             @Override
             public E next() {
-                return elementData[curr];
+                return elementData[curr++];
             }
         };
     }

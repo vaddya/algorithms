@@ -1,10 +1,9 @@
-package com.vaddya.structures;
+package com.vaddya.stepik.structures;
 
 import java.util.Scanner;
 import java.util.Stack;
 
 public class BracketsChecker {
-
     private static final char LEFT_PAREN = '(';
     private static final char RIGHT_PAREN = ')';
     private static final char LEFT_BRACE = '{';
@@ -13,9 +12,11 @@ public class BracketsChecker {
     private static final char RIGHT_BRACKET = ']';
 
     public static void main(String[] args) {
-        String text = new Scanner(System.in).next();
-        int error = checkParentheses(text);
-        System.out.println(error == -1 ? "Success" : error);
+        try (Scanner scan = new Scanner(System.in)) {
+            String text = scan.next();
+            int error = checkParentheses(text);
+            System.out.println(error == -1 ? "Success" : error);
+        }
     }
 
     /**

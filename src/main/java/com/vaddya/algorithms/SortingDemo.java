@@ -9,7 +9,7 @@ import static com.vaddya.algorithms.Utils.gen;
 import static com.vaddya.algorithms.Utils.isSorted;
 
 /**
- * Sorting com.vaddya.algorithms demonstration
+ * Sorting algorithms demonstration
  *
  * @author vaddya
  */

@@ -1,4 +1,4 @@
-package com.vaddya.structures;
+package com.vaddya.stepik.structures;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,14 +7,15 @@ import java.util.Scanner;
 public class TreeHeight {
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        int tree[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            tree[i] = scan.nextInt();
+        try (Scanner scan = new Scanner(System.in)) {
+            int n = scan.nextInt();
+            int[] tree = new int[n];
+            for (int i = 0; i < n; i++) {
+                tree[i] = scan.nextInt();
+            }
+            int height = findTreeHeight(tree);
+            System.out.println(height);
         }
-        int height = findTreeHeight(tree);
-        System.out.println(height);
     }
 
     /**
@@ -30,7 +31,7 @@ public class TreeHeight {
         for (int i = 0; i < tree.length; i++) {
             height = Math.max(height, distanceToRoot(tree, i, cache));
         }
-        return height + 1;
+        return height;
     }
 
     private static int distanceToRoot(int[] tree, int curr, Map<Integer, Integer> cache) {

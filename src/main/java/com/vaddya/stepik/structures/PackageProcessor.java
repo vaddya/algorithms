@@ -1,20 +1,26 @@
-package com.vaddya.structures;
+package com.vaddya.stepik.structures;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class PackageProcessor {
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int size = scan.nextInt();
-        int n = scan.nextInt();
-        List<Package> packages = new ArrayList<>(n);
-        for (int i = 0; i < n; i++) {
-            packages.add(new Package(scan.nextInt(), scan.nextInt()));
-        }
-        process(size, packages);
-        for (Package p : packages) {
-            System.out.println(p.getProcessStartTime());
+        try (Scanner scan = new Scanner(System.in)) {
+            int size = scan.nextInt();
+            int n = scan.nextInt();
+            List<Package> packages = new ArrayList<>(n);
+            for (int i = 0; i < n; i++) {
+                packages.add(new Package(scan.nextInt(), scan.nextInt()));
+            }
+            process(size, packages);
+            for (Package p : packages) {
+                System.out.println(p.getProcessStartTime());
+            }
         }
     }
 
@@ -36,7 +42,7 @@ public class PackageProcessor {
             if (queue.isEmpty()) {
                 int arrival = it.next().getArrival();
                 it.previous();
-                time = time < arrival ? arrival : time;
+                time = Math.max(time, arrival);
             }
 
             while (it.hasNext()) {
@@ -74,9 +80,8 @@ public class PackageProcessor {
     }
 
     static class Package {
-
-        private int arrival;
-        private int duration;
+        private final int arrival;
+        private final int duration;
         private int processStartTime;
         private int processTimeLeft;
 

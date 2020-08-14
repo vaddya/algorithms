@@ -1,7 +1,7 @@
 package com.vaddya.algorithms;
 
 /**
- * Binary search com.vaddya.algorithms
+ * Binary search algorithms
  *
  * @author vaddya
  */

@@ -1,7 +1,7 @@
 package com.vaddya.algorithms.sorting;
 
 /**
- * Counting sort com.vaddya.algorithms
+ * Counting sort algorithms
  *
  * @author vaddya
  * @since November 08, 2016
